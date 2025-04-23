@@ -126,7 +126,7 @@ public class SubjectPageController implements Initializable {
             ObservableList<DtoSubject> dtoSubjects = subjectPageModel.searchSubject(txtUpdateSubID.getText());
             tableView.setItems(dtoSubjects);
         }else {
-            new Alert(Alert.AlertType.INFORMATION, "Colaum  is empty ").show();
+            new Alert(Alert.AlertType.INFORMATION, "Column  is empty ").show();
         }
 
     }

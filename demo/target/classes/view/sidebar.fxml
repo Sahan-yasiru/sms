@@ -34,10 +34,16 @@
                         <String fx:value="pane" />
                      </styleClass></Button>
                   <Button mnemonicParsing="false" onAction="#lordStudent" prefHeight="69.0" prefWidth="259.0" styleClass="buttons" stylesheets="@css/mainpage.css" text="Manage Subjects" />
+                  <Button mnemonicParsing="false" onAction="#lordAttendance" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css" text="Attendance">
+                     <styleClass>
+                        <String fx:value="buttons" />
+                        <String fx:value="pane" />
+                     </styleClass>
+                  </Button>
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" top="10.0" />
-               </padding>
+              </padding>
             </VBox>
          </children></VBox>
       <AnchorPane fx:id="temp" layoutX="285.0" layoutY="-5.0" prefHeight="898.0" prefWidth="1169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

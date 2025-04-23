@@ -54,4 +54,7 @@ public class SideBarController implements Initializable {
     public void lordStudent(ActionEvent actionEvent) {
         lordPage("subjectpage.fxml");
     }
+    public void lordAttendance(ActionEvent actionEvent){
+        lordPage("attendancepage.fxml");
+    }
 }

@@ -51,7 +51,7 @@ public class LoginController  {
 
             Stage stage = (Stage) loginPane.getScene().getWindow();
             stage.setScene(dashboardScene);
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.centerOnScreen();
 
         }catch (Exception e){
