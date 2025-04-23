@@ -1,0 +1,30 @@
+.root {
+    -fx-background-color:#FFF8F8;
+
+}
+
+.pane {
+    -fx-background-color: #102E50;
+    -fx-background-radius: 30;
+}
+.font{
+    -fx-font-size: 20 ;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-background-color:  #FBF8EF;
+    -fx-border-width: 0 0 2 0;
+}
+.button-font{
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-background-color: black;
+}
+.font2{
+    -fx-font-size: 15;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 20;
+    -fx-background-color: #FBF8EF;
+    -fx-border-color: #000000;
+    -fx-alignment: center;
+}

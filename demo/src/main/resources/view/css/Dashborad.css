@@ -1,0 +1,17 @@
+.box{
+    -fx-background-color: #60B5FF;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-background-radius: 20;
+    -fx-alignment: center;
+}
+.pane{
+    -fx-background-color: #FFF8F8;
+}
+.number{
+    -fx-background-color: #60B5FF;
+    -fx-font-weight: bold;
+    -fx-font-size: 30;
+    -fx-background-radius: 20;
+    -fx-alignment: center;
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="loginPane" prefHeight="591.0" prefWidth="923.0" stylesheets="@css/loginpage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.LoginController">
+   <children>
+      <Pane prefHeight="591.0" prefWidth="362.0" styleClass="pane" stylesheets="@css/mainpage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" layoutX="90.0" layoutY="72.0">
+               <image>
+                  <Image url="@images/img.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="16.0" layoutY="240.0" prefHeight="65.0" prefWidth="349.0" stylesheets="@css/loginpage.css" text="School Managmet System" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="32.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="edumaster is a complete and feature-rich school management software for all educational institutes. This school management software is for learning, administration, and management activities in schools, colleges, universities, tuition centers, or training centers." wrappingWidth="316.13000106811523">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane layoutX="362.0" layoutY="-1.0" prefHeight="591.0" prefWidth="561.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="362.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" layoutX="98.0" layoutY="116.0" prefHeight="65.0" prefWidth="349.0" stylesheets="@css/loginpage.css" text="Welcome Back!">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <VBox layoutX="76.0" layoutY="192.0" prefHeight="218.0" prefWidth="409.0" spacing="50.0">
+               <children>
+                  <HBox prefHeight="38.0" prefWidth="409.0">
+                     <children>
+                        <TextField fx:id="txtuserName" prefHeight="43.0" prefWidth="412.0" promptText="User Name" styleClass="font" stylesheets="@css/loginpage.css" />
+                     </children>
+                  </HBox>
+                  <PasswordField fx:id="txtPassword" promptText="Password" styleClass="font" stylesheets="@css/loginpage.css" />
+               </children>
+            </VBox>
+            <Button layoutX="205.0" layoutY="443.0" mnemonicParsing="false" onAction="#login" prefHeight="59.0" prefWidth="137.0" styleClass="button-font" stylesheets="@css/loginpage.css" text="Login" textFill="WHITE" />
+            <Button layoutX="132.0" layoutY="509.0" mnemonicParsing="false" onAction="#lordAddUser" prefHeight="26.0" prefWidth="289.0" styleClass="font2" stylesheets="@css/loginpage.css" text="if you don't have an account clickhere" />
+         </children>
+      </Pane>
+      <HBox layoutX="20.0" layoutY="20.0" prefHeight="38.0" prefWidth="409.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mysql-connector-j-9.2.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../SwingHome/gdse-73-mvc-main/src/edu/ijse/mvc/lib/mysql-connector-j-9.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anPane" prefHeight="898.0" prefWidth="1169.0" styleClass="pane" stylesheets="@css/Dashborad.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.settingsController">
+   <children>
+      <ImageView fitHeight="913.0" fitWidth="1169.0" onMouseClicked="#lordtableAgin" rotate="180.0">
+         <image>
+            <Image url="@images/backgroundpic.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="37.0" layoutY="14.0" prefHeight="45.0" prefWidth="277.0" styleClass="fontL" stylesheets="@css/main.css" text="Settings">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <VBox layoutX="52.0" layoutY="111.0" prefHeight="308.0" prefWidth="476.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
+         <children>
+            <HBox prefHeight="36.0" prefWidth="476.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="Admin ID       :" />
+                  <Label fx:id="labelAdminID" prefHeight="25.0" prefWidth="366.0" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="colorNormalF" stylesheets="@css/main.css" text="Label" />
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="476.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="User Name    :" />
+                  <TextField fx:id="txtUserName" prefHeight="26.0" prefWidth="367.0" styleClass="colorNormalF">
+                     <stylesheets>
+                        <URL value="@css/main.css" />
+                        <URL value="@css/main.css" />
+                     </stylesheets>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="476.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="Password      :" />
+                  <TextField fx:id="txtPassword" prefHeight="26.0" prefWidth="367.0" styleClass="colorNormalF">
+                     <stylesheets>
+                        <URL value="@css/main.css" />
+                        <URL value="@css/main.css" />
+                     </stylesheets>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="434.0" spacing="30.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#adminSave" prefHeight="64.0" prefWidth="124.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Save" />
+               </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <Label alignment="CENTER" layoutX="226.0" layoutY="90.0" prefHeight="18.0" prefWidth="128.0" text="Add User" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableView" layoutX="539.0" layoutY="80.0" prefHeight="584.0" prefWidth="620.0" styleClass="table" stylesheets="@css/main.css">
+        <columns>
+          <TableColumn fx:id="ColAdmin_ID" prefWidth="206.0" text="Admin_ID" />
+          <TableColumn fx:id="colUser_Name" prefWidth="207.0" text="User_Name" />
+            <TableColumn fx:id="colPassword" prefWidth="187.0" text="Password" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Label alignment="CENTER" layoutX="795.0" layoutY="50.0" prefHeight="18.0" prefWidth="128.0" text="Table Admin" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="558.0" layoutY="743.0" prefHeight="79.0" prefWidth="601.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are admins                currently registerd" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtnum" layoutX="814.0" layoutY="760.0" prefHeight="45.0" prefWidth="71.0" text="NO" textFill="RED">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <VBox layoutX="52.0" layoutY="452.0" prefHeight="308.0" prefWidth="476.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
+         <children>
+            <HBox prefHeight="36.0" prefWidth="476.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="Admin ID       :" />
+                  <TextField fx:id="txtAdminIDBox2" prefHeight="26.0" prefWidth="367.0" styleClass="colorNormalF">
+                     <stylesheets>
+                        <URL value="@css/main.css" />
+                        <URL value="@css/main.css" />
+                     </stylesheets>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="476.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="User Name    :" />
+                  <TextField fx:id="txtUserNameBox2" prefHeight="26.0" prefWidth="367.0" styleClass="colorNormalF">
+                     <stylesheets>
+                        <URL value="@css/main.css" />
+                        <URL value="@css/main.css" />
+                     </stylesheets>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="476.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="Password      :" />
+                  <TextField fx:id="txtPasswordBox2" prefHeight="26.0" prefWidth="367.0" styleClass="colorNormalF">
+                     <stylesheets>
+                        <URL value="@css/main.css" />
+                        <URL value="@css/main.css" />
+                     </stylesheets>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="434.0" spacing="30.0">
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#adminDelete" prefHeight="66.0" prefWidth="117.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#adminUpdate" prefHeight="64.0" prefWidth="122.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Update" />
+                  <Button mnemonicParsing="false" onAction="#adminSearch" prefHeight="64.0" prefWidth="122.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Search" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <Label alignment="CENTER" layoutX="175.0" layoutY="427.0" prefHeight="25.0" prefWidth="230.0" text="Update and Delete  User" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

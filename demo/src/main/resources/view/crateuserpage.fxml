@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="482.0" prefWidth="688.0" styleClass="pane" stylesheets="@css/Dashborad.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.CrateUserController">
+   <children>
+      <ImageView fitHeight="482.0" fitWidth="688.0" rotate="180.0">
+         <image>
+            <Image url="@images/backgroundpic.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="244.0" layoutY="14.0" prefHeight="72.0" prefWidth="201.0" styleClass="box" stylesheets="@css/Dashborad.css" text="Register" />
+      <VBox layoutX="41.0" layoutY="128.0" prefHeight="148.0" prefWidth="612.0" spacing="20.0">
+         <children>
+            <HBox prefHeight="33.0" prefWidth="612.0" spacing="50.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="149.0" text="Admin_ID">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelAdminID" prefHeight="25.0" prefWidth="358.0" textFill="#f80000">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="612.0" spacing="50.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="149.0" text="New User  Name">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUsername" prefHeight="26.0" prefWidth="359.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="75.0" prefWidth="612.0" spacing="50.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="149.0" text="New Password">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtPassWold" prefHeight="31.0" prefWidth="359.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="232.0" layoutY="310.0" mnemonicParsing="false" onAction="#addUser" prefHeight="60.0" prefWidth="224.0" style="-fx-background-color: #000000; -fx-background-radius: 20;" stylesheets="@css/Dashborad.css" text="Sign up" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

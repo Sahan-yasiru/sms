@@ -1,0 +1,35 @@
+.fontL{
+    -fx-alignment: center;
+    -fx-text-fill: #000000;
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}
+.normalF{
+    -fx-alignment: left;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+.colorNormalF{
+    -fx-text-fill: #f50d0d;
+    -fx-font-size: 18;
+    -fx-alignment: left;
+}
+.cover{
+    -fx-border-radius: 20;
+    -fx-border-color: #000000;
+}
+.table{
+    -fx-border-color: #000000;
+    -fx-border-radius: 15;
+    -fx-background-color: #FDFAF6;
+    -fx-background-radius: 15;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18;
+}
+.button{
+    -fx-background-color: #000000;
+    -fx-text-fill:  #FDFAF6;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+}
