@@ -53,6 +53,7 @@ public class LoginController  {
             stage.setScene(dashboardScene);
             stage.setResizable(false);
             stage.centerOnScreen();
+            stage.centerOnScreen();
 
         }catch (Exception e){
             Alert alert=new Alert(Alert.AlertType.ERROR,"page not found");

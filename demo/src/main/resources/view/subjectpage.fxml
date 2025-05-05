@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="898.0" prefWidth="1169.0" styleClass="pane" stylesheets="@css/Dashborad.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.SubjectPageController">
    <children>
-      <ImageView fitHeight="913.0" fitWidth="1169.0" onMouseClicked="#reFreshTable" rotate="180.0">
+      <ImageView fitHeight="913.0" fitWidth="1174.0" layoutX="1.0" onMouseClicked="#reFreshTable" rotate="180.0">
          <image>
             <Image url="@images/backgroundpic.jpg" />
          </image>
@@ -25,7 +25,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <VBox layoutX="25.0" layoutY="131.0" prefHeight="326.0" prefWidth="544.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
+      <VBox layoutX="25.0" layoutY="209.0" prefHeight="326.0" prefWidth="544.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
          <children>
             <HBox prefHeight="61.0" prefWidth="584.0">
                <children>
@@ -52,7 +52,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <TableView fx:id="tableView" layoutX="618.0" layoutY="109.0" prefHeight="538.0" prefWidth="537.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="618.0" layoutY="187.0" prefHeight="538.0" prefWidth="537.0" styleClass="table" stylesheets="@css/main.css">
         <columns>
           <TableColumn fx:id="colSubjectID" prefWidth="75.0" text="Subject_ID" />
           <TableColumn fx:id="colSubName" prefWidth="75.0" text="Name" />
@@ -61,22 +61,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="843.0" layoutY="65.0" prefHeight="44.0" prefWidth="132.0" text="Table Subject">
+      <Label layoutX="843.0" layoutY="143.0" prefHeight="44.0" prefWidth="132.0" text="Table Subject">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="585.0" layoutY="744.0" prefHeight="77.0" prefWidth="574.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are            Subjects currently avalable" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="600.0" layoutY="794.0" prefHeight="77.0" prefWidth="574.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are            Subjects currently avalable" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lblNumber" layoutX="745.0" layoutY="768.0" prefHeight="29.0" prefWidth="60.0" text="NO" textFill="RED">
+      <Label fx:id="lblNumber" layoutX="760.0" layoutY="818.0" prefHeight="29.0" prefWidth="60.0" text="NO" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="25.0" layoutY="495.0" prefHeight="326.0" prefWidth="544.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
+      <VBox layoutX="25.0" layoutY="573.0" prefHeight="326.0" prefWidth="544.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
          <children>
             <HBox prefHeight="61.0" prefWidth="584.0">
                <children>
@@ -94,7 +94,6 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#btnUpdate" prefHeight="69.0" prefWidth="129.0" text="Update" />
                   <Button mnemonicParsing="false" onAction="#btnDelete" prefHeight="69.0" prefWidth="129.0" text="Delete" />
-                  <Button mnemonicParsing="false" onAction="#searchSubject" prefHeight="69.0" prefWidth="129.0" text="Search" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="70.0" />
@@ -105,5 +104,20 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
+      <Label layoutX="225.0" layoutY="171.0" prefHeight="51.0" prefWidth="256.0" stylesheets="@css/main.css" text="Add Subject">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="169.0" layoutY="535.0" prefHeight="51.0" prefWidth="256.0" stylesheets="@css/main.css" text="Update and Delete Subject">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="SearchBar" alignment="CENTER" layoutX="383.0" layoutY="51.0" onKeyTyped="#searchSubject" prefHeight="45.0" prefWidth="434.0" promptText="Search Subject" style="-fx-background-color: #A8F1FF; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" stylesheets="@css/mainpage.css">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="898.0" prefWidth="1169.0" styleClass="pane" stylesheets="@css/Dashborad.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.DashBordController">
-   
+
    <children>
-      <ImageView fitHeight="913.0" fitWidth="1169.0" rotate="180.0">
+      <ImageView fx:id="imageView" fitHeight="913.0" fitWidth="1169.0" rotate="180.0">
          <image>
             <Image url="@images/backgroundpic.jpg" />
          </image>

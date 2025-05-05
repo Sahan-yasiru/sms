@@ -42,6 +42,7 @@ public class SideBarController implements Initializable {
             temp.getChildren().add(pane);
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            e.printStackTrace();
         }
 
     }

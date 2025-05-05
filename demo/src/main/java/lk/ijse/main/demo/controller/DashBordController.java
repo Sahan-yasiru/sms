@@ -11,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.main.demo.dto.DtoTimeTable;
 import lk.ijse.main.demo.model.DashboardModel;
 
+import javax.swing.text.Element;
+import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -37,6 +39,8 @@ public class DashBordController implements Initializable {
     private TableColumn<DtoTimeTable,String> colStartTime;
     @FXML
     private TableColumn<DtoTimeTable,String> colEndTime;
+    @FXML
+    private  ImageView imageView;
 
 
 

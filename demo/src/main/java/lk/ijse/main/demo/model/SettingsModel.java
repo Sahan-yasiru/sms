@@ -20,83 +20,87 @@ public class SettingsModel {
     }
 
     public String AdminUpdate(DtoAdmin dtoAdmin) {
-        if(dtoAdmin.getPassword().isEmpty()||dtoAdmin.getAdminID().isEmpty()||dtoAdmin.getUserName().isEmpty()){
+        if (dtoAdmin.getPassword().isEmpty() || dtoAdmin.getAdminID().isEmpty() || dtoAdmin.getUserName().isEmpty()) {
             return "Recodes are Empty";
         }
         try {
             String sql = "UPDATE Admin SET User_name=?,Password=? WHERE Admin_ID=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,dtoAdmin.getUserName());
-            preparedStatement.setString(2,dtoAdmin.getPassword());
-            preparedStatement.setString(3,dtoAdmin.getAdminID());
+            preparedStatement.setString(1, dtoAdmin.getUserName());
+            preparedStatement.setString(2, dtoAdmin.getPassword());
+            preparedStatement.setString(3, dtoAdmin.getAdminID());
 
-            return preparedStatement.executeUpdate()>0?"Success":"Failed";
-        }catch (Exception e){
+            return preparedStatement.executeUpdate() > 0 ? "Success" : "Failed";
+        } catch (Exception e) {
             return e.getMessage();
         }
     }
-    public String deleteAdmin(String adminID){
-        if(adminID.isEmpty()){
+
+    public String deleteAdmin(String adminID) {
+        if (adminID.isEmpty()) {
             return "Record is Empty";
         }
         try {
-            String sql="DELETE FROM Admin WHERE Admin_ID=?";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,adminID);
+            String sql = "DELETE FROM Admin WHERE Admin_ID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, adminID);
 
-            return preparedStatement.executeUpdate()>0?"Success":"Failed";
+            return preparedStatement.executeUpdate() > 0 ? "Success" : "Failed";
         } catch (Exception e) {
             return e.getMessage();
         }
 
     }
-    public String getNumberOfAdmin(){
-        try {
-            String sql="SELECT COUNT(Admin_ID) AS Number_of FROM Admin";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
-            ResultSet resultSet=preparedStatement.executeQuery();
-            String result="";
-            if (resultSet.next()){
-                result=resultSet.getString("Number_of");
+    public String getNumberOfAdmin() {
+        try {
+            String sql = "SELECT COUNT(Admin_ID) AS Number_of FROM Admin";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String result = "";
+            if (resultSet.next()) {
+                result = resultSet.getString("Number_of");
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
     }
-    public ObservableList<DtoAdmin> lordTable() throws SQLException{
+
+    public ObservableList<DtoAdmin> lordTable() throws SQLException {
         try {
-            String sql="SELECT * FROM Admin";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
+            String sql = "SELECT * FROM Admin";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            ResultSet resultSet=preparedStatement.executeQuery();
-            ObservableList<DtoAdmin> dtoAdmins= FXCollections.observableArrayList();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ObservableList<DtoAdmin> dtoAdmins = FXCollections.observableArrayList();
 
-            while (resultSet.next()){
-               DtoAdmin dtoAdmin=new DtoAdmin(resultSet.getString("Admin_ID"),resultSet.getString("User_name"),resultSet.getString("Password"));
-               dtoAdmins.add(dtoAdmin);
+            while (resultSet.next()) {
+                DtoAdmin dtoAdmin = new DtoAdmin(resultSet.getString("Admin_ID"), resultSet.getString("User_name"), resultSet.getString("Password"));
+                dtoAdmins.add(dtoAdmin);
             }
             return dtoAdmins;
         } catch (Exception e) {
             throw new SQLException();
         }
     }
-    public ObservableList<DtoAdmin> searchUser(String adminID){
-        try {
-            String sql="SELECT * FROM Admin WHERE Admin_ID=?";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,adminID);
 
-            ResultSet set=preparedStatement.executeQuery();
-            ObservableList<DtoAdmin> dtoAdmins=FXCollections.observableArrayList();
-            while (set.next()){
-                dtoAdmins.add(new DtoAdmin(set.getString("Admin_ID"),set.getString("User_Name"),set.getString("Password")));
+    public ObservableList<DtoAdmin> searchUser(String anything)  throws SQLException {
+        String sql = "SELECT  * FROM Admin WHERE Admin_ID =? or User_name =? or Password=?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, anything);
+            preparedStatement.setString(2, anything);
+            preparedStatement.setString(3, anything);
+
+            ResultSet resultSet= preparedStatement.executeQuery();
+            ObservableList<DtoAdmin> dtoAdmins = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                dtoAdmins.add(new DtoAdmin(resultSet.getString("Admin_ID"), resultSet.getString("User_name"), resultSet.getString("Password")));
             }
             return dtoAdmins;
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
 
 
     }

@@ -21,12 +21,12 @@
             <Image url="@images/backgroundpic.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="37.0" layoutY="14.0" prefHeight="45.0" prefWidth="277.0" styleClass="fontL" stylesheets="@css/main.css" text="Settings">
+      <Label layoutX="14.0" layoutY="25.0" prefHeight="37.0" prefWidth="230.0" styleClass="fontL" stylesheets="@css/main.css" text="Settings">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <VBox layoutX="52.0" layoutY="111.0" prefHeight="308.0" prefWidth="476.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
+      <VBox layoutX="48.0" layoutY="188.0" prefHeight="308.0" prefWidth="476.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
          <children>
             <HBox prefHeight="36.0" prefWidth="476.0">
                <children>
@@ -69,12 +69,12 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <Label alignment="CENTER" layoutX="226.0" layoutY="90.0" prefHeight="18.0" prefWidth="128.0" text="Add User" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="222.0" layoutY="167.0" prefHeight="18.0" prefWidth="128.0" text="Add User" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="539.0" layoutY="80.0" prefHeight="584.0" prefWidth="620.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="535.0" layoutY="157.0" prefHeight="584.0" prefWidth="620.0" styleClass="table" stylesheets="@css/main.css">
         <columns>
           <TableColumn fx:id="ColAdmin_ID" prefWidth="206.0" text="Admin_ID" />
           <TableColumn fx:id="colUser_Name" prefWidth="207.0" text="User_Name" />
@@ -84,22 +84,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label alignment="CENTER" layoutX="795.0" layoutY="50.0" prefHeight="18.0" prefWidth="128.0" text="Table Admin" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="791.0" layoutY="127.0" prefHeight="18.0" prefWidth="128.0" text="Table Admin" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="558.0" layoutY="743.0" prefHeight="79.0" prefWidth="601.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are admins                currently registerd" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="554.0" layoutY="820.0" prefHeight="79.0" prefWidth="601.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are admins                currently registerd" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="txtnum" layoutX="814.0" layoutY="760.0" prefHeight="45.0" prefWidth="71.0" text="NO" textFill="RED">
+      <Label fx:id="txtnum" layoutX="810.0" layoutY="837.0" prefHeight="45.0" prefWidth="71.0" text="NO" textFill="RED">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <VBox layoutX="52.0" layoutY="452.0" prefHeight="308.0" prefWidth="476.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
+      <VBox layoutX="48.0" layoutY="529.0" prefHeight="308.0" prefWidth="476.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
          <children>
             <HBox prefHeight="36.0" prefWidth="476.0">
                <children>
@@ -141,7 +141,6 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#adminDelete" prefHeight="66.0" prefWidth="117.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Delete" />
                   <Button mnemonicParsing="false" onAction="#adminUpdate" prefHeight="64.0" prefWidth="122.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Update" />
-                  <Button mnemonicParsing="false" onAction="#adminSearch" prefHeight="64.0" prefWidth="122.0" style="-fx-background-color: #000000; -fx-text-fill: #FDFAF6; -fx-font-weight: bold;" text="Search" />
                </children>
             </HBox>
          </children>
@@ -149,10 +148,15 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <Label alignment="CENTER" layoutX="175.0" layoutY="427.0" prefHeight="25.0" prefWidth="230.0" text="Update and Delete  User" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="171.0" layoutY="504.0" prefHeight="25.0" prefWidth="230.0" text="Update and Delete  User" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
+      <TextField fx:id="SearchBar" alignment="CENTER" layoutX="376.0" layoutY="31.0" onKeyTyped="#searchUser" prefHeight="45.0" prefWidth="434.0" promptText="Search User" style="-fx-background-color: #A8F1FF; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" stylesheets="@css/mainpage.css">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

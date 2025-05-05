@@ -6,8 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import jdk.jfr.SettingControl;
 import lk.ijse.main.demo.dto.DtoAdmin;
 import lk.ijse.main.demo.getID.IDGenerator;
 import lk.ijse.main.demo.model.AddUserModel;
@@ -43,10 +45,13 @@ public class settingsController implements Initializable {
     private TextField txtUserName;
     @FXML
     private TextField txtPassword;
+    @FXML
+    private TextField SearchBar;
     private IDGenerator idGenerator;
     private AddUserModel addUserModel;
     private SettingsModel settingsModel;
     private DtoAdmin dtoAdmin;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,7 +94,7 @@ public class settingsController implements Initializable {
 
     public void adminUpdate(ActionEvent actionEvent) {
         try {
-            dtoAdmin=new DtoAdmin(txtAdminIDBox2.getText(), txtUserNameBox2.getText(), txtPasswordBox2.getText());
+            dtoAdmin = new DtoAdmin(txtAdminIDBox2.getText(), txtUserNameBox2.getText(), txtPasswordBox2.getText());
             String result = settingsModel.AdminUpdate(dtoAdmin);
             new Alert(Alert.AlertType.INFORMATION, result).show();
             reLord();
@@ -116,6 +121,8 @@ public class settingsController implements Initializable {
         txtPasswordBox2.clear();
         txtUserName.clear();
         txtUserNameBox2.clear();
+        SearchBar.clear();
+
         setNumber();
     }
 
@@ -144,15 +151,20 @@ public class settingsController implements Initializable {
         }
 
     }
-    public void adminSearch(ActionEvent actionEvent){
-        if(!txtAdminIDBox2.getText().isEmpty()) {
-            ObservableList<DtoAdmin> dtoAdmins = settingsModel.searchUser(txtAdminIDBox2.getText());
-            tableView.setItems(dtoAdmins);
-        }else {
-            new Alert(Alert.AlertType.INFORMATION,"Coloum is Empty").show();
-        }
-    }
+
     public void lordtableAgin(MouseEvent mouseEvent) {
+
         reLord();
     }
+
+    public void searchUser(KeyEvent keyEvent) {
+        try {
+            ObservableList<DtoAdmin> dtoAdmins=settingsModel.searchUser(SearchBar.getText());
+            tableView.setItems(dtoAdmins);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage());
+        }
+    }
+
+
 }

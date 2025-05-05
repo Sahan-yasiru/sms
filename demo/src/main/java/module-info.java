@@ -3,6 +3,7 @@ module lk.ijse.main.demo {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires jdk.jfr;
 
 
     opens lk.ijse.main.demo.controller to javafx.fxml;

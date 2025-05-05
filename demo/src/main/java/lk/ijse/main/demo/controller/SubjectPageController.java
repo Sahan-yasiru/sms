@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.main.demo.dto.DtoSubject;
 import lk.ijse.main.demo.getID.IDGenerator;
@@ -31,6 +32,8 @@ public class SubjectPageController implements Initializable {
     private TextField txtUpdateSubID;
     @FXML
     private TextField txtUpdateSubName;
+    @FXML
+    private  TextField SearchBar;
 
     private SubjectPageModel subjectPageModel;
     private IDGenerator idGenerator;
@@ -106,6 +109,7 @@ public class SubjectPageController implements Initializable {
         txtSubName.clear();
         txtUpdateSubID.clear();
         txtUpdateSubName.clear();
+        SearchBar.clear();
 
     }
     public void setNumber(){
@@ -121,13 +125,15 @@ public class SubjectPageController implements Initializable {
         reLode();
     }
 
-    public void searchSubject(ActionEvent actionEvent) {
-        if(!txtUpdateSubID.getText().isEmpty()) {
-            ObservableList<DtoSubject> dtoSubjects = subjectPageModel.searchSubject(txtUpdateSubID.getText());
+    public void searchSubject(KeyEvent keyEvent) {
+        try {
+            ObservableList<DtoSubject> dtoSubjects = subjectPageModel.searchSubject(SearchBar.getText());
             tableView.setItems(dtoSubjects);
-        }else {
-            new Alert(Alert.AlertType.INFORMATION, "Column  is empty ").show();
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
+
+
 
     }
 }

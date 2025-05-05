@@ -94,12 +94,14 @@ public class SubjectPageModel {
             return e.getMessage();
         }
     }
-    public ObservableList<DtoSubject> searchSubject(String adminID){
-        try {
+    public ObservableList<DtoSubject> searchSubject(String anything) throws SQLException{
+
             connection=DbController.getInstance().getConnection();
-            String sql="SELECT * FROM Subject WHERE Subject_ID=?";
+            String sql="SELECT  * FROM Subject WHERE Subject_ID= ? OR Name= ?";
+
             PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,adminID);
+            preparedStatement.setString(1,anything);
+            preparedStatement.setString(2,anything);
 
             ObservableList<DtoSubject> dtoSubjects=FXCollections.observableArrayList();
             ResultSet set=preparedStatement.executeQuery();
@@ -108,9 +110,7 @@ public class SubjectPageModel {
                 dtoSubjects.add(new DtoSubject(set.getString("Subject_ID"),set.getString("Name")));
             }
             return dtoSubjects;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 

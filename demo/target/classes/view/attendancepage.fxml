@@ -12,6 +12,6 @@
             <Image url="@images/backgroundpic.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="64.0" layoutY="51.0" prefHeight="57.0" prefWidth="277.0" styleClass="labels" stylesheets="@css/mainpage.css" text="Settings" />
+      <Label layoutX="64.0" layoutY="51.0" prefHeight="57.0" prefWidth="277.0" styleClass="labels" stylesheets="@css/mainpage.css" text="Attendance" />
    </children>
 </AnchorPane>
