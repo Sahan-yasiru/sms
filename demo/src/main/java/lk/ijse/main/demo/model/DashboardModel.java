@@ -50,7 +50,7 @@ public class DashboardModel {
         DayOfWeek dayOfWeek=localDate.getDayOfWeek();
         String date=dayOfWeek.name();
             connection = DbController.getInstance().getConnection();
-            String sql="SELECT t.day_of_week,Subject.Name,t.start_time,t.End_time  FROM Time_Table,Subject join Time_Table t on Subject.Subject_ID = t.Subject_ID having t.day_of_week=?";
+            String sql="SELECT DISTINCT t.day_of_week,Subject.Name,t.start_time,t.End_time  FROM Time_Table,Subject join Time_Table t on Subject.Subject_ID = t.Subject_ID having t.day_of_week=?";
             PreparedStatement preparedStatement=connection.prepareStatement(sql);
             preparedStatement.setString(1,date);
 
