@@ -1,6 +1,7 @@
 package lk.ijse.main.demo.getID;
 
 import lk.ijse.main.demo.db.DbController;
+import lk.ijse.main.demo.util.CRUD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,12 +12,8 @@ public class IDGenerator {
     private Connection connection;
 
     public String getID(String priKEy,String name) throws SQLException {
-        connection= DbController.getInstance().getConnection();
-        try {
             String sql="SELECT "+priKEy+" FROM "+name+" ORDER BY "+priKEy+" DESC LIMIT 1 ";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            ResultSet set=preparedStatement.executeQuery();
-
+            ResultSet set= CRUD.executeQuery(sql);
             int i=0;
             String temp="";
             while (set.next()){
@@ -26,10 +23,6 @@ public class IDGenerator {
 
             }
             return String.format(temp.charAt(0)+"%03d", i);
-
-        }catch (Exception e){
-            return e.getMessage();
-        }
 
     }
 

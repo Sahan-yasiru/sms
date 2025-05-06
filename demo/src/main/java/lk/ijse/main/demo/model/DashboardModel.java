@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoSubject;
 import lk.ijse.main.demo.dto.DtoTimeTable;
+import lk.ijse.main.demo.util.CRUD;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -49,12 +50,8 @@ public class DashboardModel {
         LocalDate localDate=LocalDate.now();
         DayOfWeek dayOfWeek=localDate.getDayOfWeek();
         String date=dayOfWeek.name();
-            connection = DbController.getInstance().getConnection();
             String sql="SELECT DISTINCT t.day_of_week,Subject.Name,t.start_time,t.End_time  FROM Time_Table,Subject join Time_Table t on Subject.Subject_ID = t.Subject_ID having t.day_of_week=?";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,date);
-
-            ResultSet set=preparedStatement.executeQuery();
+            ResultSet set= CRUD.executeQuery(sql,date);
             ObservableList<DtoTimeTable> dtoTimeTables= FXCollections.observableArrayList();
             while (set.next()){
                 dtoTimeTables.add(new DtoTimeTable(null,null,set.getString("start_time"),set.getString("End_time"),set.getString("Day_of_week"),set.getString("Name")));

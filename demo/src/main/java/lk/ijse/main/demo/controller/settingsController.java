@@ -87,7 +87,7 @@ public class settingsController implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, result).show();
             reLord();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.INFORMATION, e.getMessage());
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
     }
@@ -129,7 +129,6 @@ public class settingsController implements Initializable {
     public void setNumber() {
         try {
             txtnum.setText(settingsModel.getNumberOfAdmin());
-
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage());
         }

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoAdmin;
 import lk.ijse.main.demo.getID.IDGenerator;
+import lk.ijse.main.demo.util.CRUD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,67 +14,47 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SettingsModel {
-    private Connection connection;
 
-    public SettingsModel() throws SQLException {
-        connection = DbController.getInstance().getConnection();
-    }
 
-    public String AdminUpdate(DtoAdmin dtoAdmin) {
+
+    public String AdminUpdate(DtoAdmin dtoAdmin) throws SQLException {
         if (dtoAdmin.getPassword().isEmpty() || dtoAdmin.getAdminID().isEmpty() || dtoAdmin.getUserName().isEmpty()) {
             return "Recodes are Empty";
-        }
-        try {
-            String sql = "UPDATE Admin SET User_name=?,Password=? WHERE Admin_ID=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, dtoAdmin.getUserName());
-            preparedStatement.setString(2, dtoAdmin.getPassword());
-            preparedStatement.setString(3, dtoAdmin.getAdminID());
+        }else {
 
-            return preparedStatement.executeUpdate() > 0 ? "Success" : "Failed";
-        } catch (Exception e) {
-            return e.getMessage();
+            String sql = "UPDATE Admin SET User_name=?,Password=? WHERE Admin_ID=?";
+            Boolean b=CRUD.executeQuery(sql,dtoAdmin.getAdminID(),dtoAdmin.getUserName(),dtoAdmin.getPassword());
+
+            return b==true ? "Success" : "Failed";
         }
     }
 
-    public String deleteAdmin(String adminID) {
+    public String deleteAdmin(String adminID) throws SQLException {
         if (adminID.isEmpty()) {
             return "Record is Empty";
-        }
-        try {
+        }else {
             String sql = "DELETE FROM Admin WHERE Admin_ID=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, adminID);
-
-            return preparedStatement.executeUpdate() > 0 ? "Success" : "Failed";
-        } catch (Exception e) {
-            return e.getMessage();
+            Boolean b = CRUD.executeQuery(sql, adminID);
+            return b == true ? "Success" : "Failed";
         }
-
     }
 
-    public String getNumberOfAdmin() {
-        try {
+    public String getNumberOfAdmin() throws SQLException {
             String sql = "SELECT COUNT(Admin_ID) AS Number_of FROM Admin";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = CRUD.executeQuery(sql);
             String result = "";
             if (resultSet.next()) {
                 result = resultSet.getString("Number_of");
             }
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+
     }
 
     public ObservableList<DtoAdmin> lordTable() throws SQLException {
-        try {
-            String sql = "SELECT * FROM Admin";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            String sql = "SELECT * FROM Admin";
+            ResultSet resultSet = CRUD.executeQuery(sql);
             ObservableList<DtoAdmin> dtoAdmins = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -81,20 +62,12 @@ public class SettingsModel {
                 dtoAdmins.add(dtoAdmin);
             }
             return dtoAdmins;
-        } catch (Exception e) {
-            throw new SQLException();
-        }
     }
 
     public ObservableList<DtoAdmin> searchUser(String anything)  throws SQLException {
         String sql = "SELECT  * FROM Admin WHERE Admin_ID =? or User_name =? or Password=?";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, anything);
-            preparedStatement.setString(2, anything);
-            preparedStatement.setString(3, anything);
-
-            ResultSet resultSet= preparedStatement.executeQuery();
+            ResultSet resultSet= CRUD.executeQuery(sql,anything,anything,anything);
             ObservableList<DtoAdmin> dtoAdmins = FXCollections.observableArrayList();
 
             while (resultSet.next()) {

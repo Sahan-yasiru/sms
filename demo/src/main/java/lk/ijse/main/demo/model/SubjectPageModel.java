@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoSubject;
+import lk.ijse.main.demo.util.CRUD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,103 +15,68 @@ public class SubjectPageModel {
     private Connection connection;
 
 
-    public String subjectSave(DtoSubject dtoSubject){
-        if(dtoSubject.getSubjectID().isEmpty()||dtoSubject.getName().isEmpty()){
+    public String subjectSave(DtoSubject dtoSubject) throws SQLException {
+        if (dtoSubject.getSubjectID().isEmpty() || dtoSubject.getName().isEmpty()) {
             return "Records are Empty";
-        }
-        try {
-            connection = DbController.getInstance().getConnection();
-            String sql="INSERT INTO Subject VALUES (?,?)";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,dtoSubject.getSubjectID());
-            preparedStatement.setString(2,dtoSubject.getName());
-
-            return preparedStatement.executeUpdate()>0?"Success":"Failed";
-        } catch (Exception e) {
-            return e.getMessage();
+        } else {
+            String sql = "INSERT INTO Subject VALUES (?,?)";
+            Boolean b = CRUD.executeQuery(sql, dtoSubject.getSubjectID(), dtoSubject.getName());
+            return b == true ? "Success" : "Failed";
         }
     }
-    public String updateSubject(DtoSubject dtoSubject){
-        if(dtoSubject.getName().isEmpty()||dtoSubject.getSubjectID().isEmpty()){
+
+    public String updateSubject(DtoSubject dtoSubject) throws SQLException {
+        if (dtoSubject.getName().isEmpty() || dtoSubject.getSubjectID().isEmpty()) {
             return "Name Recode is Empty";
-        }
-        try {
-            connection = DbController.getInstance().getConnection();
+        } else {
             String sql = "UPDATE Subject SET Name=? WHERE Subject_ID=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,dtoSubject.getName());
-            preparedStatement.setString(2,dtoSubject.getSubjectID());
-
-            return preparedStatement.executeUpdate()>0?"Success":"Failed";
-        }catch (Exception e){
-            return e.getMessage();
+            Boolean b = CRUD.executeQuery(sql, dtoSubject.getName(), dtoSubject.getSubjectID());
+            return b == true ? "Success" : "Failed";
         }
     }
-    public String deleteSubject(DtoSubject dtoSubject){
-        if(dtoSubject.getSubjectID().isEmpty()){
+
+    public String deleteSubject(DtoSubject dtoSubject) throws SQLException {
+        if (dtoSubject.getSubjectID().isEmpty()) {
             return "Subject Id record is empty ";
-        }
-        try {
-            connection = DbController.getInstance().getConnection();
-            String sql="DELETE FROM Subject WHERE Subject_id=?";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,dtoSubject.getSubjectID());
+        } else {
+            String sql = "DELETE FROM Subject WHERE Subject_id=?";
+            Boolean b = CRUD.executeQuery(sql, dtoSubject.getSubjectID());
+            return b == true ? "Success" : "Failed";
 
-            return preparedStatement.executeUpdate()>0?"Success":"Failed";
-        }catch (Exception e){
-            return e.getMessage();
-        }
-
-    }
-    public ObservableList<DtoSubject> getSubjectData(){
-        try {
-            connection=DbController.getInstance().getConnection();
-            String sql="SELECT * FROM Subject";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-
-            ResultSet set=preparedStatement.executeQuery();
-            ObservableList<DtoSubject> dtoSubjects= FXCollections.observableArrayList();
-            while (set.next()){
-                dtoSubjects.add(new DtoSubject(set.getString("Subject_ID"),set.getString("Name")));
-            }
-            return dtoSubjects;
-        }catch (Exception e){
-            throw new RuntimeException(e);
         }
     }
-    public String getNumber(){
-        try {
-            connection=DbController.getInstance().getConnection();
-            String sql="SELECT COUNT(Subject_ID) AS Num FROM Subject";
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
-            ResultSet resultSet=preparedStatement.executeQuery();
-            String result="";
-            while (resultSet.next()){
-                 result=resultSet.getString("Num");
+    public ObservableList<DtoSubject> getSubjectData() throws SQLException {
+        String sql = "SELECT * FROM Subject";
+        ResultSet set = CRUD.executeQuery(sql);
+        ObservableList<DtoSubject> dtoSubjects = FXCollections.observableArrayList();
+        while (set.next()) {
+            dtoSubjects.add(new DtoSubject(set.getString("Subject_ID"), set.getString("Name")));
+        }
+        return dtoSubjects;
+
+    }
+
+    public String getNumber() throws SQLException{
+            String sql = "SELECT COUNT(Subject_ID) AS Num FROM Subject";
+            ResultSet resultSet = CRUD.executeQuery(sql);
+            String result = "";
+            while (resultSet.next()) {
+                result = resultSet.getString("Num");
             }
             return result;
-        }catch (Exception e){
-            return e.getMessage();
-        }
     }
-    public ObservableList<DtoSubject> searchSubject(String anything) throws SQLException{
 
-            connection=DbController.getInstance().getConnection();
-            String sql="SELECT  * FROM Subject WHERE Subject_ID= ? OR Name= ?";
+    public ObservableList<DtoSubject> searchSubject(String anything) throws SQLException {
+        String sql = "SELECT  * FROM Subject WHERE Subject_ID= ? OR Name= ?";
 
-            PreparedStatement preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,anything);
-            preparedStatement.setString(2,anything);
+        ObservableList<DtoSubject> dtoSubjects = FXCollections.observableArrayList();
+        ResultSet set = CRUD.executeQuery(sql,anything,anything);
 
-            ObservableList<DtoSubject> dtoSubjects=FXCollections.observableArrayList();
-            ResultSet set=preparedStatement.executeQuery();
-
-            while (set.next()){
-                dtoSubjects.add(new DtoSubject(set.getString("Subject_ID"),set.getString("Name")));
-            }
-            return dtoSubjects;
-
+        while (set.next()) {
+            dtoSubjects.add(new DtoSubject(set.getString("Subject_ID"), set.getString("Name")));
+        }
+        return dtoSubjects;
 
     }
 
