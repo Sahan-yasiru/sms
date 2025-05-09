@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="739.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceTeaController">
+   <children>
+      <Label layoutX="210.0" layoutY="101.0" prefHeight="57.0" prefWidth="390.0" text="Teacher" />
+   </children>
+</AnchorPane>

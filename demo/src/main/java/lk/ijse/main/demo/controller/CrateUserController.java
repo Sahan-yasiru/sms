@@ -35,7 +35,7 @@ public class CrateUserController implements Initializable {
     public void lordID(){
         try {
             idGenerator=new IDGenerator();
-            labelAdminID.setText(idGenerator.getID("Admin_ID","Admin"));
+            labelAdminID.setText(idGenerator.getID("A","Admin_ID","Admin"));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }

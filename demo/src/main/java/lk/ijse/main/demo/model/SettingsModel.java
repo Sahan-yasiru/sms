@@ -23,7 +23,7 @@ public class SettingsModel {
         }else {
 
             String sql = "UPDATE Admin SET User_name=?,Password=? WHERE Admin_ID=?";
-            Boolean b=CRUD.executeQuery(sql,dtoAdmin.getAdminID(),dtoAdmin.getUserName(),dtoAdmin.getPassword());
+            Boolean b=CRUD.executeQuery(sql,dtoAdmin.getUserName(),dtoAdmin.getPassword(),dtoAdmin.getAdminID());
 
             return b==true ? "Success" : "Failed";
         }

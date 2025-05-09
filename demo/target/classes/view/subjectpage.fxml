@@ -41,7 +41,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="163.0" prefWidth="544.0" spacing="80.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#btnSave" prefHeight="69.0" prefWidth="129.0" text="Save" />
+                  <Button fx:id="DeleteBtn" mnemonicParsing="false" onAction="#btnDelete" prefHeight="69.0" prefWidth="129.0" text="Delete" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#btnSave" prefHeight="69.0" prefWidth="129.0" text="Save" />
+                  <Button fx:id="UpdateButton" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="69.0" prefWidth="129.0" text="Update" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="70.0" />
@@ -52,7 +54,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <TableView fx:id="tableView" layoutX="618.0" layoutY="187.0" prefHeight="538.0" prefWidth="537.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="618.0" layoutY="187.0" onMouseClicked="#tableClicked" prefHeight="538.0" prefWidth="537.0" styleClass="table" stylesheets="@css/main.css">
         <columns>
           <TableColumn fx:id="colSubjectID" prefWidth="75.0" text="Subject_ID" />
           <TableColumn fx:id="colSubName" prefWidth="75.0" text="Name" />
@@ -66,50 +68,17 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="600.0" layoutY="794.0" prefHeight="77.0" prefWidth="574.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are            Subjects currently avalable" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="10.0" layoutY="648.0" prefHeight="77.0" prefWidth="574.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" text="There are            Subjects currently avalable" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lblNumber" layoutX="760.0" layoutY="818.0" prefHeight="29.0" prefWidth="60.0" text="NO" textFill="RED">
+      <Label fx:id="lblNumber" layoutX="171.0" layoutY="672.0" prefHeight="29.0" prefWidth="60.0" text="NO" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="25.0" layoutY="573.0" prefHeight="326.0" prefWidth="544.0" spacing="20.0" styleClass="cover" stylesheets="@css/main.css">
-         <children>
-            <HBox prefHeight="61.0" prefWidth="584.0">
-               <children>
-                  <Label prefHeight="51.0" prefWidth="256.0" styleClass="normalF" stylesheets="@css/main.css" text="Subject ID          :" />
-                  <TextField fx:id="txtUpdateSubID" prefHeight="45.0" prefWidth="378.0" styleClass="colorNormalF" stylesheets="@css/main.css" />
-               </children>
-            </HBox>
-            <HBox prefHeight="61.0" prefWidth="584.0">
-               <children>
-                  <Label prefHeight="51.0" prefWidth="256.0" styleClass="normalF" stylesheets="@css/main.css" text="Subject Name  :" />
-                  <TextField fx:id="txtUpdateSubName" prefHeight="45.0" prefWidth="378.0" styleClass="normalF" stylesheets="@css/main.css" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="163.0" prefWidth="544.0" spacing="80.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#btnUpdate" prefHeight="69.0" prefWidth="129.0" text="Update" />
-                  <Button mnemonicParsing="false" onAction="#btnDelete" prefHeight="69.0" prefWidth="129.0" text="Delete" />
-               </children>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="70.0" />
-               </padding>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </VBox>
-      <Label layoutX="225.0" layoutY="171.0" prefHeight="51.0" prefWidth="256.0" stylesheets="@css/main.css" text="Add Subject">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="169.0" layoutY="535.0" prefHeight="51.0" prefWidth="256.0" stylesheets="@css/main.css" text="Update and Delete Subject">
+      <Label layoutX="169.0" layoutY="162.0" prefHeight="51.0" prefWidth="256.0" stylesheets="@css/main.css" text="Add,Remove,Update Subjects">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>

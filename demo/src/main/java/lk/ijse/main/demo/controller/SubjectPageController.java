@@ -29,9 +29,12 @@ public class SubjectPageController implements Initializable {
     @FXML
     private TextField txtSubName;
     @FXML
-    private TextField txtUpdateSubID;
+    private Button saveButton;
     @FXML
-    private TextField txtUpdateSubName;
+    private Button UpdateButton;
+    @FXML
+    private Button DeleteBtn;
+
     @FXML
     private  TextField SearchBar;
 
@@ -49,7 +52,7 @@ public class SubjectPageController implements Initializable {
     }
     public void getID(){
         try {
-            lblSubID.setText(idGenerator.getID("Subject_ID","Subject"));
+            lblSubID.setText(idGenerator.getID("S","Subject_ID","Subject"));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
@@ -68,7 +71,7 @@ public class SubjectPageController implements Initializable {
     }
     public void btnUpdate(ActionEvent actionEvent){
         try {
-            String result=subjectPageModel.updateSubject(new DtoSubject(txtUpdateSubID.getText(),txtUpdateSubName.getText()));
+            String result=subjectPageModel.updateSubject(new DtoSubject(lblSubID.getText(),txtSubName.getText()));
             reLode();
             new Alert(Alert.AlertType.INFORMATION,result).show();
 
@@ -80,7 +83,7 @@ public class SubjectPageController implements Initializable {
 
     public void btnDelete(ActionEvent actionEvent) {
         try {
-            String result=subjectPageModel.deleteSubject(new DtoSubject(txtUpdateSubID.getText(),null));
+            String result=subjectPageModel.deleteSubject(new DtoSubject(lblSubID.getText(),null));
             reLode();
             new Alert(Alert.AlertType.INFORMATION,result).show();
         }catch (Exception e){
@@ -103,12 +106,13 @@ public class SubjectPageController implements Initializable {
         clear();
         getID();
         setNumber();
+        saveButton.setDisable(false);
+        UpdateButton.setDisable(true);
+        DeleteBtn.setDisable(true);
 
     }
     public void clear(){
         txtSubName.clear();
-        txtUpdateSubID.clear();
-        txtUpdateSubName.clear();
         SearchBar.clear();
 
     }
@@ -133,6 +137,21 @@ public class SubjectPageController implements Initializable {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
+
+
+    }
+
+
+    public void tableClicked(MouseEvent mouseEvent) {
+        DtoSubject dtoSubject=tableView.getSelectionModel().getSelectedItem();
+
+        if(dtoSubject !=null){
+            saveButton.setDisable(true);
+            UpdateButton.setDisable(false);
+            DeleteBtn.setDisable(false);
+            lblSubID.setText(dtoSubject.getSubjectID());
+            txtSubName.setText(dtoSubject.getName());
+        }
 
 
     }

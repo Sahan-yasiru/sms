@@ -30,13 +30,13 @@ public class settingsController implements Initializable {
     private TableColumn<DtoAdmin, String> colPassword;
     @FXML
     private TableView<DtoAdmin> tableView;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button btnUpdate;
+    @FXML
+    private Button btnDelete;
 
-    @FXML
-    private TextField txtAdminIDBox2;
-    @FXML
-    private TextField txtUserNameBox2;
-    @FXML
-    private TextField txtPasswordBox2;
     @FXML
     private Label txtnum;
     @FXML
@@ -71,7 +71,7 @@ public class settingsController implements Initializable {
     public void lordAdminID() {
         try {
             idGenerator = new IDGenerator();
-            labelAdminID.setText(idGenerator.getID("Admin_ID", "Admin"));
+            labelAdminID.setText(idGenerator.getID("A","Admin_ID", "Admin"));
 
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage());
@@ -94,7 +94,7 @@ public class settingsController implements Initializable {
 
     public void adminUpdate(ActionEvent actionEvent) {
         try {
-            dtoAdmin = new DtoAdmin(txtAdminIDBox2.getText(), txtUserNameBox2.getText(), txtPasswordBox2.getText());
+            dtoAdmin = new DtoAdmin(labelAdminID.getText(), txtUserName.getText(), txtPassword.getText());
             String result = settingsModel.AdminUpdate(dtoAdmin);
             new Alert(Alert.AlertType.INFORMATION, result).show();
             reLord();
@@ -104,8 +104,9 @@ public class settingsController implements Initializable {
     }
 
     public void adminDelete(ActionEvent actionEvent) {
+        System.out.println("hi");
         try {
-            String result = settingsModel.deleteAdmin(txtAdminIDBox2.getText());
+            String result = settingsModel.deleteAdmin(labelAdminID.getText());
             new Alert(Alert.AlertType.INFORMATION, result).show();
             reLord();
         } catch (Exception e) {
@@ -116,11 +117,8 @@ public class settingsController implements Initializable {
     }
 
     public void clear() {
-        txtAdminIDBox2.clear();
         txtPassword.clear();
-        txtPasswordBox2.clear();
         txtUserName.clear();
-        txtUserNameBox2.clear();
         SearchBar.clear();
 
         setNumber();
@@ -139,6 +137,9 @@ public class settingsController implements Initializable {
         lordTable();
         clear();
         lordAdminID();
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
+        btnSave.setDisable(false);
     }
 
     public void lordTable() {
@@ -166,4 +167,17 @@ public class settingsController implements Initializable {
     }
 
 
+    public void tableClicked(MouseEvent mouseEvent) {
+        DtoAdmin dtoAdmin1=tableView.getSelectionModel().getSelectedItem();
+
+        if(dtoAdmin1!= null){
+            btnSave.setDisable(true);
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+            labelAdminID.setText(dtoAdmin1.getAdminID());
+            txtUserName.setText(dtoAdmin1.getUserName());
+            txtPassword.setText(dtoAdmin1.getPassword());
+        }
+
+    }
 }

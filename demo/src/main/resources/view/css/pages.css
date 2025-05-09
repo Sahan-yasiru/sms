@@ -1,0 +1,18 @@
+.box{
+    -fx-background-color: #FFF2F2;
+    -fx-border-radius: 20;
+    -fx-border-color: #000000;
+
+}
+.button{
+    -fx-background-radius: 15;
+    -fx-background-color: #393E46;
+    -fx-text-fill: #FFF2F2;
+
+}
+.label{
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+}
+

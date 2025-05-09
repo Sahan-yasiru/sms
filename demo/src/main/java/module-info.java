@@ -4,6 +4,7 @@ module lk.ijse.main.demo {
     requires java.sql;
     requires java.desktop;
     requires jdk.jfr;
+    requires com.gluonhq.charm.glisten;
 
 
     opens lk.ijse.main.demo.controller to javafx.fxml;
