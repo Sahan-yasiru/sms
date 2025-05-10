@@ -27,6 +27,11 @@ public class AttendanceStuController implements Initializable {
     public Button btnUpdate;
     public Button btnDelete;
 
+
+    @FXML
+    private Label lblNumPresent;
+    @FXML
+    private Label lblNumAbsent;
     @FXML
     private TextField txtSerch;
     @FXML
@@ -99,6 +104,8 @@ public class AttendanceStuController implements Initializable {
         getId();
         datePicker.setValue(LocalDate.now());
         lordTable();
+        setNumbers();
+        clear();
 
     }
 
@@ -162,6 +169,17 @@ public class AttendanceStuController implements Initializable {
     }
 
     public void deleteAttend(ActionEvent actionEvent) {
+        try {
+            String s=attendanceStuModel.deleteAttendStu(attendanceID.getText());
+            new Alert(Alert.AlertType.INFORMATION,s).show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+        reLord();
+
+    }
+    public void clear(){
+        txtSerch.clear();
 
     }
 
@@ -230,13 +248,18 @@ public class AttendanceStuController implements Initializable {
     }
     public void serchAttedStu(KeyEvent keyEvent){
         try {
-            tableView.setItems(attendanceStuModel.serchAttendStu(txtSerch.getText()));
-        } catch (SQLException e) {
+            tableView.setItems(attendanceStuModel.serchAttendStu( txtSerch.getText()));
+        } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 
     }
-
-
-
+    public void setNumbers(){
+        try {
+            lblNumPresent.setText(attendanceStuModel.presentNumSet());
+            lblNumAbsent.setText(attendanceStuModel.absentNumSet());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

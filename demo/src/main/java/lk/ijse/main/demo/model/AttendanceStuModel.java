@@ -2,13 +2,18 @@ package lk.ijse.main.demo.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoAttendenceStu;
 import lk.ijse.main.demo.util.CRUD;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class AttendanceStuModel {
 
@@ -87,33 +92,67 @@ public class AttendanceStuModel {
     }
 
     public ObservableList<DtoAttendenceStu> serchAttendStu(String anything) throws SQLException {
+        ResultSet set=null;
+        String []coloums={"Admin_ID","Student_ID","Stu_Name","Class_ID","Attend_ID"};
         ObservableList<DtoAttendenceStu> dtoAttendenceStus=FXCollections.observableArrayList();
-        class GrabData{
-            public void collectData(String row,String keyword) throws SQLException{
-                String sql="SELECT * FROM Attendance_Stu WHERE "+row+" =? ";
-                ResultSet set=CRUD.executeQuery(sql,keyword);
-                while (set.next()){
-                    dtoAttendenceStus.add(new DtoAttendenceStu(set.getString(1), set.getString(2), set.getString(3), set.getString(4), set.getString(6), set.getBoolean(5), set.getString(7)));
-                }
+
+        for (String colum:coloums){
+            String sql="SELECT * FROM Attendance_Stu WHERE "+colum+" = ?";
+            set=CRUD.executeQuery(sql,anything);
+
+            while (set.next()){
+                dtoAttendenceStus.add(new DtoAttendenceStu(set.getString(1), set.getString(2), set.getString(3), set.getString(4), set.getString(6), set.getBoolean(5), set.getString(7)));
             }
+            System.gc();
         }
-        new GrabData().collectData("Attend_ID",anything);
-        new GrabData().collectData("Admin_ID",anything);
-        new GrabData().collectData("Student_ID",anything);
-        new GrabData().collectData("Stu_name",anything);
-        new GrabData().collectData("Class_ID",anything);
         return dtoAttendenceStus;
+
     }
 
-    public Boolean chackDate(String date) {
+    public Date chackDate(Object date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            simpleDateFormat.parse(date);
-            return true;
+            Date date1 =simpleDateFormat.parse(date.toString());
+            return date1;
         } catch (ParseException e) {
-            return false;
+            return null;
         }
     }
+    public Boolean chackBoolean(Object b) {
+        try {
+            Boolean result =Boolean.parseBoolean(b.toString());
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public String presentNumSet() throws SQLException{
+        String sql="SELECT COUNT(Status) AS Num FROM Attendance_Stu WHERE Status = ? ";
+        ResultSet set=CRUD.executeQuery(sql,true);
+        String s="";
+
+        while (set.next()){
+            s=set.getString("Num");
+        }
+        return s;
+
+    }
+    public String absentNumSet() throws SQLException{
+        String sql="SELECT COUNT(Status) AS Num FROM Attendance_Stu WHERE Status = ? ";
+        ResultSet set=CRUD.executeQuery(sql,false);
+        String s="";
+
+        while (set.next()){
+            s=set.getString("Num");
+        }
+        return s;
+
+    }
+    public String deleteAttendStu(String attendID) throws SQLException{
+        String sql="DELETE FROM Attendance_Stu WHERE Attend_ID = ? ";
+        return CRUD.executeQuery(sql,attendID)?"Successfully Updated" : "Something Went Wrong";
+    }
+
 }
 
 
