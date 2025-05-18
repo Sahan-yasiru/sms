@@ -15,6 +15,7 @@ import lk.ijse.main.demo.model.AttendanceStuModel;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -27,7 +28,8 @@ public class AttendanceStuController implements Initializable {
     public Button btnUpdate;
     public Button btnDelete;
 
-
+    @FXML
+    private Label classWarning;
     @FXML
     private Label lblNumPresent;
     @FXML
@@ -51,9 +53,9 @@ public class AttendanceStuController implements Initializable {
     @FXML
     private TableView<DtoAttendenceStu> tableView;
     @FXML
-    private TableColumn<DtoAttendenceStu,String> tblAttendID,tblAdminID,tblDate,tblStuID,tblStuName,tblClassID;
+    private TableColumn<DtoAttendenceStu, String> tblAttendID, tblAdminID, tblDate, tblStuID, tblStuName, tblClassID;
     @FXML
-    private TableColumn<DtoAttendenceStu,String> tblStatus;
+    private TableColumn<DtoAttendenceStu, String> tblStatus;
 
     private LoginController loginController = new LoginController();
     private AttendanceStuModel attendanceStuModel;
@@ -62,7 +64,6 @@ public class AttendanceStuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         datePicker.setConverter(new StringConverter<LocalDate>() {
             @Override
@@ -87,6 +88,7 @@ public class AttendanceStuController implements Initializable {
 
     }
 
+
     public void getId() {
         try {
             attendanceID.setText(idGenerator.getID("AT", "Attend_ID", "Attendance_Stu"));
@@ -96,6 +98,8 @@ public class AttendanceStuController implements Initializable {
     }
 
     public void reLord() {
+        clearText();
+        classWarning.setVisible(false);
         btnSave.setDisable(false);
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
@@ -105,63 +109,95 @@ public class AttendanceStuController implements Initializable {
         datePicker.setValue(LocalDate.now());
         lordTable();
         setNumbers();
-        clear();
+
 
     }
 
-    public void lordStuIds(MouseEvent actionEvent) {
-        try {
-            cmbStuID.setItems(attendanceStuModel.getIDs());
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+    public void lordStuIds(MouseEvent mouseEvent) {
+        if (!(cmbclassID.getValue() == null)) {
+            try {
+                cmbStuID.setItems(attendanceStuModel.getIDs(cmbclassID.getValue()));
+                cmbStuID.setOnAction(event -> {
+                    try {
+                        cmbStuName.setValue(attendanceStuModel.setAutoStuName(cmbStuID.getValue()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    }
+                });
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+        } else {
+            cmbclassID.setStyle(cmbclassID.getStyle() + ";-fx-border-color: #CB0404;");
+            classWarning.setVisible(true);
         }
     }
 
     public void lordStuNames(MouseEvent actionEvent) {
-        try {
-            cmbStuName.setItems(attendanceStuModel.getStuNames());
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        if (!(cmbclassID.getValue() == null)) {
+            try {
+                cmbStuName.setItems(attendanceStuModel.getStuNames(cmbclassID.getValue()));
+                cmbStuName.setOnAction(event -> {
+                    try {
+                        cmbStuID.setValue(attendanceStuModel.setAutoStuID(cmbStuName.getValue()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                    }
+                });
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+        } else {
+            cmbclassID.setStyle(cmbclassID.getStyle() + ";-fx-border-color: #CB0404;");
+            classWarning.setVisible(true);
         }
 
     }
 
     public void saveAttend(ActionEvent actionEvent) {
-        if (cmbStuID.getValue() != null && cmbStuName.getValue() != null &&cmbclassID.getValue()!=null&& datePicker.getValue() != null && (btnPresent.isSelected() || btnAbsent.isSelected())) {
+        if (cmbStuID.getValue() != null && cmbStuName.getValue() != null && cmbclassID.getValue() != null && datePicker.getValue() != null && (btnPresent.isSelected() || btnAbsent.isSelected())) {
             try {
-
-                String result = attendanceStuModel.saveStuAttend(new DtoAttendenceStu(attendanceID.getText(), datePicker.getEditor().getText(), adminID.getText(), cmbStuID.getValue(),
-                        cmbStuName.getValue(), btnPresent.isSelected() ? true : false,cmbclassID.getValue()));
-                new Alert(Alert.AlertType.INFORMATION, result).show();
-            } catch (SQLException e) {
+                if (!attendanceStuModel.chackAlreadyAttend(cmbStuID.getValue(), cmbclassID.getValue(), datePicker.getValue().toString())) {
+                    String result = attendanceStuModel.saveStuAttend(new DtoAttendenceStu(attendanceID.getText(), datePicker.getEditor().getText(), adminID.getText(), cmbStuID.getValue(),
+                            cmbStuName.getValue(), btnPresent.isSelected() ? true : false, cmbclassID.getValue()));
+                    if (result.contains("your Date is invalid")) {
+                        datePicker.setStyle(datePicker.getStyle() + " ;-fx-border-color: #CB0404;");
+                    }
+                    new Alert(Alert.AlertType.INFORMATION, result).show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Student Already Marked ").show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
 
         } else {
-            if(cmbStuID.getValue()==null){
-                cmbStuID.setStyle(cmbStuID.getStyle()+" ;-fx-border-color: #CB0404;");
+            if (cmbStuID.getValue() == null) {
+                cmbStuID.setStyle(cmbStuID.getStyle() + " ;-fx-border-color: #CB0404;");
             }
-            if (cmbStuName.getValue()==null){
-                cmbStuName.setStyle(cmbStuName.getStyle() +";-fx-border-color: #CB0404;");
+            if (cmbStuName.getValue() == null) {
+                cmbStuName.setStyle(cmbStuName.getStyle() + ";-fx-border-color: #CB0404;");
             }
-            if(datePicker.getValue()==null){
-                datePicker.setStyle(datePicker.getStyle() +";-fx-border-color: #CB0404;");
+            if (datePicker.getValue() == null) {
+                datePicker.setStyle(datePicker.getStyle() + ";-fx-border-color: #CB0404;");
             }
-            if(cmbclassID.getValue()==null){
-                cmbclassID.setStyle(datePicker.getStyle() +";-fx-border-color: #CB0404;");
+            if (cmbclassID.getValue() == null) {
+                cmbclassID.setStyle(cmbclassID.getStyle() + ";-fx-border-color: #CB0404;");
             }
         }
         reLord();
-
-
     }
+
 
     public void updateAttend(ActionEvent actionEvent) {
         try {
             String s = attendanceStuModel.updateAttendStu(new DtoAttendenceStu(attendanceID.getText(), datePicker.getValue().toString(), adminID.getText(), cmbStuID.getValue(), cmbStuName.getValue(), btnPresent.isSelected() ? true : false, cmbclassID.getValue()));
-            new Alert(Alert.AlertType.INFORMATION,s).show();
+            new Alert(Alert.AlertType.INFORMATION, s).show();
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
         reLord();
 
@@ -170,16 +206,12 @@ public class AttendanceStuController implements Initializable {
 
     public void deleteAttend(ActionEvent actionEvent) {
         try {
-            String s=attendanceStuModel.deleteAttendStu(attendanceID.getText());
-            new Alert(Alert.AlertType.INFORMATION,s).show();
+            String s = attendanceStuModel.deleteAttendStu(attendanceID.getText());
+            new Alert(Alert.AlertType.INFORMATION, s).show();
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
         reLord();
-
-    }
-    public void clear(){
-        txtSerch.clear();
 
     }
 
@@ -193,7 +225,8 @@ public class AttendanceStuController implements Initializable {
         lblStatus.setStyle(lblStatus.getStyle() + ";-fx-background-color: #FF8282;");
 
     }
-    public void lordTable(){
+
+    public void lordTable() {
         tblAdminID.setCellValueFactory(new PropertyValueFactory<>("adminID"));
         tblAttendID.setCellValueFactory(new PropertyValueFactory<>("attendID"));
         tblDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
@@ -209,17 +242,19 @@ public class AttendanceStuController implements Initializable {
 
 
     }
-    public void lordclassIDs(MouseEvent mouseEvent){
+
+    public void lordclassIDs(MouseEvent mouseEvent) {
         try {
             cmbclassID.setItems(attendanceStuModel.getclassIDs());
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
-    public void rowClicked(MouseEvent mouseEvent){
-        DtoAttendenceStu dtoAttendenceStu=tableView.getSelectionModel().getSelectedItem();
-        if(dtoAttendenceStu != null){
+
+    public void rowClicked(MouseEvent mouseEvent) {
+        DtoAttendenceStu dtoAttendenceStu = tableView.getSelectionModel().getSelectedItem();
+        if (dtoAttendenceStu != null) {
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
@@ -229,10 +264,10 @@ public class AttendanceStuController implements Initializable {
             cmbStuID.setValue(dtoAttendenceStu.getStudentID());
             cmbStuName.setValue(dtoAttendenceStu.getName());
             datePicker.setValue(LocalDate.parse(dtoAttendenceStu.getDate()));
-            if(dtoAttendenceStu.getStatus()==true){
+            if (dtoAttendenceStu.getStatus() == true) {
                 btnPresent.setSelected(true);
                 clickPresent(new ActionEvent());
-            }else {
+            } else {
                 btnAbsent.setSelected(true);
                 clickAbsent(new ActionEvent());
             }
@@ -240,26 +275,37 @@ public class AttendanceStuController implements Initializable {
         }
 
     }
-    public void paneClicked(MouseEvent mouseEvent){
+
+    public void paneClicked(MouseEvent mouseEvent) {
         reLord();
     }
-    public void boxClicked(MouseEvent mouseEvent){
+
+    public void boxClicked(MouseEvent mouseEvent) {
         reLord();
     }
-    public void serchAttedStu(KeyEvent keyEvent){
+
+    public void serchAttedStu(KeyEvent keyEvent) {
         try {
-            tableView.setItems(attendanceStuModel.serchAttendStu( txtSerch.getText()));
+            tableView.setItems(attendanceStuModel.serchAttendStu(txtSerch.getText()));
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
-    public void setNumbers(){
+
+    public void setNumbers() {
         try {
             lblNumPresent.setText(attendanceStuModel.presentNumSet());
             lblNumAbsent.setText(attendanceStuModel.absentNumSet());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void clearText() {
+        txtSerch.clear();
+        cmbStuName.setValue(null);
+        cmbStuID.setValue(null);
+
     }
 }

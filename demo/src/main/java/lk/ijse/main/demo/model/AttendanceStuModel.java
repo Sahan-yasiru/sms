@@ -17,10 +17,10 @@ import java.util.Date;
 
 public class AttendanceStuModel {
 
-    public ObservableList<String> getIDs() throws SQLException {
+    public ObservableList<String> getIDs(String classID) throws SQLException {
 
-        String sql = "SELECT Student_ID FROM Student";
-        ResultSet set = CRUD.executeQuery(sql);
+        String sql = "SELECT Student_ID FROM Student WHERE Class_ID= ? ";
+        ResultSet set = CRUD.executeQuery(sql,classID);
         ObservableList<String> observableList = FXCollections.observableArrayList();
 
         while (set.next()) {
@@ -41,9 +41,9 @@ public class AttendanceStuModel {
 
     }
 
-    public ObservableList<String> getStuNames() throws SQLException {
-        String sql = "SELECT Name FROM Student";
-        ResultSet set = CRUD.executeQuery(sql);
+    public ObservableList<String> getStuNames(String classID) throws SQLException {
+        String sql = "SELECT Name FROM Student WHERE Class_ID= ? ";
+        ResultSet set = CRUD.executeQuery(sql,classID);
         ObservableList<String> observableList = FXCollections.observableArrayList();
 
         while (set.next()) {
@@ -52,10 +52,15 @@ public class AttendanceStuModel {
         return observableList;
     }
 
-    public String saveStuAttend(DtoAttendenceStu dtoAttendenceStu) throws SQLException {
-        String sql = "INSERT INTO Attendance_Stu VALUES (?,?,?,?,?,?,?)";
-        Boolean b = CRUD.executeQuery(sql, dtoAttendenceStu.getAttendID(), dtoAttendenceStu.getDate(), dtoAttendenceStu.getAdminID(), dtoAttendenceStu.getStudentID(), dtoAttendenceStu.getStatus(), dtoAttendenceStu.getName(), dtoAttendenceStu.getClassID());
-        return b == true ? "successful" : "Failed";
+    public String saveStuAttend(DtoAttendenceStu dtoAttendenceStu) throws SQLException,ParseException {
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(dtoAttendenceStu.getDate());
+        if(!date.after(new Date())) {
+            String sql = "INSERT INTO Attendance_Stu VALUES (?,?,?,?,?,?,?)";
+            Boolean b = CRUD.executeQuery(sql, dtoAttendenceStu.getAttendID(), dtoAttendenceStu.getDate(), dtoAttendenceStu.getAdminID(), dtoAttendenceStu.getStudentID(), dtoAttendenceStu.getName(), dtoAttendenceStu.getClassID(), dtoAttendenceStu.getStatus());
+            return b == true ? "successful" : "Failed";
+        }else {
+            return "your Date is invalid";
+        }
     }
 
     public ObservableList<DtoAttendenceStu> lordTable() throws SQLException {
@@ -64,7 +69,7 @@ public class AttendanceStuModel {
         ObservableList<DtoAttendenceStu> dtoAttendenceStus = FXCollections.observableArrayList();
 
         while (set.next()) {
-            dtoAttendenceStus.add(new DtoAttendenceStu(set.getString(1), set.getString(2), set.getString(3), set.getString(4), set.getString(6), set.getBoolean(5), set.getString(7)));
+            dtoAttendenceStus.add(new DtoAttendenceStu(set.getString(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(7), set.getString(6)));
         }
         return dtoAttendenceStus;
 
@@ -152,6 +157,37 @@ public class AttendanceStuModel {
         String sql="DELETE FROM Attendance_Stu WHERE Attend_ID = ? ";
         return CRUD.executeQuery(sql,attendID)?"Successfully Updated" : "Something Went Wrong";
     }
+    public String setAutoStuID(String name) throws  SQLException{
+        ResultSet set=CRUD.executeQuery("SELECT Student_ID FROM Student WHERE Name = ?",name);
+        String s="";
+        while (set.next()){
+            s=set.getString(1);
+        }
+        return s;
+
+    }
+    public String setAutoStuName(String stuID) throws  SQLException{
+        ResultSet set=CRUD.executeQuery("SELECT Name FROM Student WHERE Student_ID = ?",stuID);
+        String s="";
+        while (set.next()){
+            s=set.getString(1);
+        }
+        return s;
+
+    }
+    public boolean chackAlreadyAttend(String stuID,String classID,String date) throws SQLException{
+        String sql="SELECT * FROM Attendance_Stu WHERE Class_ID=? AND Student_ID = ? AND  Date = ? ";
+        ResultSet set=CRUD.executeQuery(sql,classID,stuID,date);
+
+        while (set.next()){
+            return true;
+        }
+        return false;
+
+    }
+
+
+
 
 }
 

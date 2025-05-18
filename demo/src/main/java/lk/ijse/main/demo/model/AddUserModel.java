@@ -12,12 +12,12 @@ import java.sql.SQLException;
 public class AddUserModel {
 
     public String addUser(DtoAdmin dtoAdmin) throws SQLException {
-        if (dtoAdmin.getAdminID().isEmpty() || dtoAdmin.getUserName().isEmpty() || dtoAdmin.getPassword().isEmpty()) {
+        if (dtoAdmin.getAdminID().isEmpty() || dtoAdmin.getUserName().isEmpty() || dtoAdmin.getPassword().isEmpty()||dtoAdmin.getAdminType().isEmpty()) {
             return "Records are Empty";
         } else {
 
-                String sql = "INSERT INTO Admin VALUES (?,?,?);";
-                Boolean b=CRUD.executeQuery(sql,dtoAdmin.getAdminID(),dtoAdmin.getUserName(),dtoAdmin.getPassword());
+                String sql = "INSERT INTO Admin VALUES (?,?,?,?);";
+                Boolean b=CRUD.executeQuery(sql,dtoAdmin.getAdminID(),dtoAdmin.getUserName(),dtoAdmin.getPassword(),dtoAdmin.getAdminType());
 
                 return b == true ? "Success" : "failed";
 

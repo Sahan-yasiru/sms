@@ -29,6 +29,6 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </HBox>
-      <AnchorPane fx:id="tempPane" layoutX="9.0" layoutY="120.0" prefHeight="781.0" prefWidth="1150.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20;" />
+      <AnchorPane fx:id="tempPane" layoutX="9.0" layoutY="120.0" prefHeight="781.0" prefWidth="1150.0" style="-fx-background-radius: 20;" />
    </children>
 </AnchorPane>

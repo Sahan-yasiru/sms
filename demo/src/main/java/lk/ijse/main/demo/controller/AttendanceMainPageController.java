@@ -35,6 +35,7 @@ public class AttendanceMainPageController implements Initializable {
             AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/" + location));
             tempPane.getChildren().add(pane);
         } catch (IOException e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
 

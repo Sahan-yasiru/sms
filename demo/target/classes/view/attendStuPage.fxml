@@ -15,14 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseClicked="#paneClicked" prefHeight="781.0" prefWidth="1150.0" style="-fx-border-radius: 29; -fx-border-color: #000000; -fx-background-radius: 20; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceStuController">
+<AnchorPane onMouseClicked="#paneClicked" prefHeight="781.0" prefWidth="1150.0" style="-fx-border-radius: 29; -fx-background-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceStuController">
    <children>
-      <VBox layoutX="5.0" layoutY="43.0" onMouseClicked="#boxClicked" prefHeight="378.0" prefWidth="626.0" spacing="15.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-color: #FFF085; -fx-background-radius: 20;">
+      <VBox layoutX="5.0" layoutY="43.0" onMouseClicked="#boxClicked" prefHeight="378.0" prefWidth="645.0" spacing="15.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-color: #bacff1; -fx-background-radius: 20;">
          <children>
             <HBox prefHeight="40.0" prefWidth="514.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="170.0" stylesheets="@css/pages.css" text="Attendance ID  :" />
-                  <Label fx:id="attendanceID" prefHeight="18.0" prefWidth="247.0" style="-fx-text-fill: #57B4BA;" text="Label" textFill="#130ffc47">
+                  <Label fx:id="attendanceID" prefHeight="18.0" prefWidth="247.0" style="-fx-text-fill: #070101;" text="Label" textFill="#130ffc47">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Label>
@@ -59,6 +59,11 @@
                <children>
                   <Label prefHeight="18.0" prefWidth="170.0" stylesheets="@css/pages.css" text="Class ID             :" />
                   <ComboBox fx:id="cmbclassID" onMouseClicked="#lordclassIDs" prefHeight="26.0" prefWidth="255.0" />
+                  <Label fx:id="classWarning" alignment="CENTER" prefHeight="21.0" prefWidth="197.0" text="Class ID must select fist" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="43.0" prefWidth="514.0" spacing="50.0">
@@ -72,7 +77,7 @@
                   </ToggleButtonGroup>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="465.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="594.0" spacing="20.0">
                <children>
                   <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAttend" prefHeight="64.0" prefWidth="117.0" style="-fx-background-color: #000000;" text="Save" textFill="WHITE" />
                   <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updateAttend" prefHeight="64.0" prefWidth="117.0" style="-fx-background-color: #000000;" text="Update" textFill="WHITE" />

@@ -44,7 +44,7 @@ public class CrateUserController implements Initializable {
     public void addUser(ActionEvent actionEvent)  {
         try {
             addUserModel =new AddUserModel();
-            DtoAdmin dtoAdmin=new DtoAdmin(labelAdminID.getText(),txtUsername.getText(),txtPassWold.getText());
+            DtoAdmin dtoAdmin=new DtoAdmin(labelAdminID.getText(),txtUsername.getText(),txtPassWold.getText(),null);
             String outPut=addUserModel.addUser(dtoAdmin);
             new Alert(Alert.AlertType.INFORMATION,outPut).show();
             lordID();
