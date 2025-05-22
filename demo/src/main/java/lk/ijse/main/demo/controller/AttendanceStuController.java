@@ -1,6 +1,8 @@
 package lk.ijse.main.demo.controller;
 
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import lk.ijse.main.demo.dto.DtoAttendenceStu;
 import lk.ijse.main.demo.getID.IDGenerator;
@@ -21,12 +24,38 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AttendanceStuController implements Initializable {
-    public DatePicker datePicker;
-    public RadioButton btnPresent;
-    public RadioButton btnAbsent;
-    public Button btnSave;
-    public Button btnUpdate;
-    public Button btnDelete;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private RadioButton btnPresent;
+    @FXML
+    private RadioButton btnAbsent;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button btnUpdate;
+    @FXML
+    private Button btnDelete;
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private RadioButton SbtnAbsent;
+    @FXML
+    private RadioButton SbtnPresent;
+    @FXML
+    private ToggleButtonGroup btnToggle1;
+    @FXML
+    private Label SlblStatus;
+    @FXML
+    private ComboBox<String> sCmbclassID;
+    @FXML
+    private DatePicker sDatePicker;
+    @FXML
+    private ComboBox<String> scmbStuName;
+    @FXML
+    private ComboBox<String> scmbStuID;
+    @FXML
+    private Pane serachPane;
 
     @FXML
     private Label classWarning;
@@ -64,28 +93,35 @@ public class AttendanceStuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        datePicker.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate date) {
-                return (date != null) ? formatter.format(date) : "";
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
-            }
-        });
+        fixDate();
         idGenerator = new IDGenerator();
         attendanceStuModel = new AttendanceStuModel();
         try {
-            adminID.setText(attendanceStuModel.getAdminName(loginController.getLabel()));
+            adminID.setText(AttendanceStuModel.getAdminName(loginController.getLabel()));
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
         reLord();
 
 
+    }
+
+    public void fixDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DatePicker[] datePickers = {datePicker, sDatePicker};
+        for (int i = 0; i < datePickers.length; i++) {
+            datePickers[i].setConverter(new StringConverter<LocalDate>() {
+                @Override
+                public String toString(LocalDate date) {
+                    return (date != null) ? formatter.format(date) : "";
+                }
+
+                @Override
+                public LocalDate fromString(String string) {
+                    return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
+                }
+            });
+        }
     }
 
 
@@ -98,6 +134,7 @@ public class AttendanceStuController implements Initializable {
     }
 
     public void reLord() {
+        serachPane.setVisible(false);
         clearText();
         classWarning.setVisible(false);
         btnSave.setDisable(false);
@@ -114,46 +151,12 @@ public class AttendanceStuController implements Initializable {
     }
 
     public void lordStuIds(MouseEvent mouseEvent) {
-        if (!(cmbclassID.getValue() == null)) {
-            try {
-                cmbStuID.setItems(attendanceStuModel.getIDs(cmbclassID.getValue()));
-                cmbStuID.setOnAction(event -> {
-                    try {
-                        cmbStuName.setValue(attendanceStuModel.setAutoStuName(cmbStuID.getValue()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-                    }
-                });
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
-        } else {
-            cmbclassID.setStyle(cmbclassID.getStyle() + ";-fx-border-color: #CB0404;");
-            classWarning.setVisible(true);
-        }
+        lordStuIDsAndNames("M", "ID", this.cmbclassID);
+
     }
 
     public void lordStuNames(MouseEvent actionEvent) {
-        if (!(cmbclassID.getValue() == null)) {
-            try {
-                cmbStuName.setItems(attendanceStuModel.getStuNames(cmbclassID.getValue()));
-                cmbStuName.setOnAction(event -> {
-                    try {
-                        cmbStuID.setValue(attendanceStuModel.setAutoStuID(cmbStuName.getValue()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-                    }
-                });
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
-        } else {
-            cmbclassID.setStyle(cmbclassID.getStyle() + ";-fx-border-color: #CB0404;");
-            classWarning.setVisible(true);
-        }
-
+        lordStuIDsAndNames("M", "Name", this.cmbclassID);
     }
 
     public void saveAttend(ActionEvent actionEvent) {
@@ -284,12 +287,9 @@ public class AttendanceStuController implements Initializable {
         reLord();
     }
 
-    public void serchAttedStu(KeyEvent keyEvent) {
-        try {
-            tableView.setItems(attendanceStuModel.serchAttendStu(txtSerch.getText()));
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+    public void serchAttedStu(MouseEvent mouseEvent) {
+        serachPane.setVisible(true);
+
 
     }
 
@@ -308,4 +308,115 @@ public class AttendanceStuController implements Initializable {
         cmbStuID.setValue(null);
 
     }
-}
+
+    public void serachclickPresent(ActionEvent actionEvent) {
+        SlblStatus.setStyle(lblStatus.getStyle() + ";-fx-background-color: #4ED7F1;");
+    }
+
+    public void serachclickAbsent(ActionEvent actionEvent) {
+        SlblStatus.setStyle(lblStatus.getStyle() + ";-fx-background-color: #FF8282;");
+
+    }
+
+    public void btnSearch(ActionEvent actionEvent) {
+        System.out.println("worked");
+//        if (scmbStuID.getValue() != null && cmbStuName.getValue() != null && sCmbclassID.getValue() != null && sDatePicker.getValue() != null && (SbtnAbsent.isSelected() || SbtnPresent.isSelected())) {
+            DtoAttendenceStu dtoAttendenceStu = new DtoAttendenceStu();
+            dtoAttendenceStu.setStudentID(scmbStuID.getValue() != null ? scmbStuID.getValue() : null);
+            dtoAttendenceStu.setName(scmbStuName.getValue() != null ? scmbStuName.getValue() : null);
+            dtoAttendenceStu.setClassID(sCmbclassID.getValue() != null ? sCmbclassID.getValue() : null);
+            dtoAttendenceStu.setDate(sDatePicker.getValue() != null ? sDatePicker.getValue().toString() : null);
+            dtoAttendenceStu.setStatus(SbtnPresent.isSelected());
+            try {
+                tableView.setItems(attendanceStuModel.serchAttendStu(dtoAttendenceStu));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+    }
+
+        public void SlordclassIDs (MouseEvent mouseEvent){
+            try {
+                sCmbclassID.setItems(attendanceStuModel.getclassIDs());
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+
+        }
+
+        public void SlordStuNames (MouseEvent mouseEvent){
+            lordStuIDsAndNames("s", "Name", this.sCmbclassID);
+        }
+
+        public void SlordStuIds (MouseEvent mouseEvent){
+            lordStuIDsAndNames("s", "ID", this.sCmbclassID);
+
+        }
+
+        public void lordStuIDsAndNames (String type, String fetchDataType, ComboBox < String > classIDtype){
+            if (classIDtype.getValue() != null) {
+                ComboBox<String> comboBoxName = type.equals("s") ? scmbStuName : cmbStuName;
+                ComboBox<String> comboBoxID = type.equals("s") ? scmbStuID : cmbStuID;
+
+                try {
+                    comboBoxName.setOnAction(null);
+                    comboBoxID.setOnAction(null);
+
+                    if (fetchDataType.equals("Name")) {
+                        ObservableList<String> names = attendanceStuModel.getStuNames(classIDtype.getValue());
+                        ObservableList<String> ids = attendanceStuModel.getIDs(classIDtype.getValue());
+
+                        comboBoxName.setItems(names);
+                        comboBoxID.setItems(ids);
+
+                        comboBoxName.setOnAction(event -> {
+                            String selectedName = comboBoxName.getValue();
+                            if (selectedName != null) {
+                                try {
+                                    String studentID = attendanceStuModel.setAutoStuName(selectedName);
+                                    if (comboBoxID.getItems().contains(studentID)) {
+                                        comboBoxID.setValue(studentID);
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                                }
+                            }
+                        });
+
+                    } else if (fetchDataType.equals("ID")) {
+                        ObservableList<String> ids = attendanceStuModel.getIDs(classIDtype.getValue());
+                        ObservableList<String> names = attendanceStuModel.getStuNames(classIDtype.getValue());
+
+                        comboBoxID.setItems(ids);
+                        comboBoxName.setItems(names);
+
+                        comboBoxID.setOnAction(event -> {
+                            String selectedID = comboBoxID.getValue();
+                            if (selectedID != null) {
+                                try {
+                                    String studentName = attendanceStuModel.setAutoStuName(selectedID);
+                                    if (comboBoxName.getItems().contains(studentName)) {
+                                        comboBoxName.setValue(studentName);
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                                }
+                            }
+                        });
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                }
+
+            } else {
+                classIDtype.setStyle(cmbclassID.getStyle() + ";-fx-border-color: #CB0404;");
+                classWarning.setVisible(true);
+            }
+        }
+
+    }

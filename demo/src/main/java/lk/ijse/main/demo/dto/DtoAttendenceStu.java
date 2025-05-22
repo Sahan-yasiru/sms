@@ -18,6 +18,14 @@ public class DtoAttendenceStu {
         this.status = status;
         this.classID = classID;
     }
+    public DtoAttendenceStu(){
+
+    }
+
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public String getAttendID() {
         return attendID;
