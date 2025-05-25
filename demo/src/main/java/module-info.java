@@ -5,9 +5,11 @@ module lk.ijse.main.demo {
     requires java.desktop;
     requires jdk.jfr;
     requires com.gluonhq.charm.glisten;
+    requires mysql.connector.j;
 
 
     opens lk.ijse.main.demo.controller to javafx.fxml;
     opens lk.ijse.main.demo.dto to javafx.base;
     exports lk.ijse.main.demo;
+    opens lk.ijse.main.demo.toggleButton to javafx.fxml;
 }

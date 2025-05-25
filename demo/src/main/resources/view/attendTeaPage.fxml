@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="739.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceTeaController">
    <children>
-      <TableView fx:id="tableView" layoutX="8.0" layoutY="64.0" prefHeight="627.0" prefWidth="693.0" style="-fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;">
+      <TableView fx:id="tableView" layoutX="6.0" layoutY="31.0" onMouseClicked="#tableClicked" onMouseEntered="#dragRow" prefHeight="694.0" prefWidth="693.0" styleClass="table" stylesheets="@css/main.css">
         <columns>
             <TableColumn fx:id="colAttendID" prefWidth="95.0" text="Attend_ID" />
             <TableColumn fx:id="colDate" prefWidth="101.0" text="Date" />
@@ -29,12 +29,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="708.0" layoutY="64.0" onMouseClicked="#boxClicked" prefHeight="378.0" prefWidth="412.0" spacing="15.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-color: #bacff1; -fx-background-radius: 20;">
+      <VBox layoutX="709.0" layoutY="31.0" onMouseClicked="#boxClicked" prefHeight="378.0" prefWidth="412.0" spacing="15.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-color: #bacff1; -fx-background-radius: 20;">
          <children>
             <HBox prefHeight="40.0" prefWidth="514.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="224.0" stylesheets="@css/pages.css" text="Attendance ID :" />
-                  <Label fx:id="attendanceID" prefHeight="18.0" prefWidth="247.0" style="-fx-text-fill: #070101;" text="Label" textFill="#130ffc47">
+                  <Label fx:id="attendanceID" prefHeight="25.0" prefWidth="255.0" style="-fx-text-fill: #070101;" text="Label" textFill="#130ffc47">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -85,8 +85,8 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </VBox>
-      <Button alignment="CENTER" layoutX="721.0" layoutY="461.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Find" textFill="WHITE" />
-      <Button alignment="CENTER" layoutX="937.0" layoutY="461.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Delete" textFill="WHITE" />
-      <Button alignment="CENTER" layoutX="818.0" layoutY="507.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="193.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE" />
+      <Button alignment="CENTER" layoutX="722.0" layoutY="429.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Find" textFill="WHITE" />
+      <Button alignment="CENTER" layoutX="938.0" layoutY="429.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Delete" textFill="WHITE" />
+      <Button alignment="CENTER" layoutX="819.0" layoutY="475.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="193.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE" />
    </children>
 </AnchorPane>
