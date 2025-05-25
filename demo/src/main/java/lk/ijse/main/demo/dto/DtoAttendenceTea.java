@@ -19,6 +19,7 @@ public class DtoAttendenceTea {
         this.classID = classID;
         this.toggleSwitch = toggleSwitch;
     }
+    public DtoAttendenceTea() {}
 
     public String getAttendID() {
         return attendID;

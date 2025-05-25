@@ -9,14 +9,15 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="739.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceTeaController">
+<AnchorPane fx:id="pane" onMouseClicked="#paneClicked" prefHeight="739.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceTeaController">
    <children>
-      <TableView fx:id="tableView" layoutX="6.0" layoutY="31.0" onMouseClicked="#tableClicked" onMouseEntered="#dragRow" prefHeight="694.0" prefWidth="693.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="7.0" layoutY="43.0" onMouseClicked="#tableClicked" prefHeight="694.0" prefWidth="693.0" styleClass="table" stylesheets="@css/main.css">
         <columns>
             <TableColumn fx:id="colAttendID" prefWidth="95.0" text="Attend_ID" />
             <TableColumn fx:id="colDate" prefWidth="101.0" text="Date" />
@@ -29,7 +30,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="709.0" layoutY="31.0" onMouseClicked="#boxClicked" prefHeight="378.0" prefWidth="412.0" spacing="15.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-color: #bacff1; -fx-background-radius: 20;">
+      <VBox layoutX="718.0" layoutY="42.0" onMouseClicked="#boxClicked" prefHeight="488.0" prefWidth="412.0" spacing="15.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-color: #bacff1; -fx-background-radius: 20;">
          <children>
             <HBox prefHeight="40.0" prefWidth="514.0">
                <children>
@@ -54,7 +55,7 @@
             <HBox prefHeight="47.0" prefWidth="514.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="170.0" stylesheets="@css/pages.css" text="Teacher ID        :" />
-                  <ComboBox fx:id="cmbTeaID" onMouseClicked="#lordStuIds" prefHeight="26.0" prefWidth="195.0" />
+                  <ComboBox fx:id="cmbTeaID" onMouseClicked="#lordTeacherIDs" prefHeight="26.0" prefWidth="195.0" />
                </children>
             </HBox>
             <HBox prefHeight="49.0" prefWidth="514.0">
@@ -66,7 +67,7 @@
             <HBox prefHeight="49.0" prefWidth="514.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="170.0" stylesheets="@css/pages.css" text="Class ID             :" />
-                  <ComboBox fx:id="cmbclassID" onMouseClicked="#lordclassIDs" prefHeight="26.0" prefWidth="200.0" />
+                  <ComboBox fx:id="cmbclassID" onMouseClicked="#lordClassIDs" prefHeight="26.0" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="43.0" prefWidth="514.0" spacing="50.0">
@@ -74,19 +75,35 @@
                   <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="33.0" prefWidth="122.0" style="-fx-background-color: #4ED7F1; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;" stylesheets="@css/pages.css" text="Status" />
                   <ToggleButtonGroup fx:id="btnToggle" prefHeight="33.0" prefWidth="229.0">
                      <toggles>
-                        <RadioButton fx:id="btnPresent" mnemonicParsing="false" onAction="#clickPresent" prefHeight="30.0" prefWidth="105.0" text="Present" />
-                        <RadioButton fx:id="btnAbsent" mnemonicParsing="false" onAction="#clickAbsent" prefHeight="30.0" prefWidth="105.0" text="Absent" />
+                        <RadioButton fx:id="btnPresent" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" text="Present" />
+                        <RadioButton fx:id="btnAbsent" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" text="Absent" />
                      </toggles>
                   </ToggleButtonGroup>
                </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="380.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btnSave" alignment="CENTER" mnemonicParsing="false" onAction="#saveAtted" prefHeight="60.0" prefWidth="172.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE" />
+                  <Button fx:id="btnDelete" alignment="CENTER" mnemonicParsing="false" onAction="#deleteAttend" prefHeight="60.0" prefWidth="172.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Delete" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="363.0">
+               <children>
+                  <Button fx:id="btnUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#updateAtted" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Update" textFill="WHITE" />
+               </children>
+               <padding>
+                  <Insets left="2.0" right="30.0" />
+               </padding>
             </HBox>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </VBox>
-      <Button alignment="CENTER" layoutX="722.0" layoutY="429.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Find" textFill="WHITE" />
-      <Button alignment="CENTER" layoutX="938.0" layoutY="429.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Delete" textFill="WHITE" />
-      <Button alignment="CENTER" layoutX="819.0" layoutY="475.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="193.0" style="-fx-background-color: #000000; -fx-background-radius: 30;" text="Save" textFill="WHITE" />
+      <TextField fx:id="txtSearch" alignment="CENTER" layoutX="778.0" prefHeight="26.0" prefWidth="293.0" promptText="Search" style="-fx-background-color: #A8F1FF; -fx-background-radius: 20; -fx-border-color: #000000; -fx-border-radius: 20;">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

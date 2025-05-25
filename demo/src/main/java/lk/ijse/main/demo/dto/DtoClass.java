@@ -12,6 +12,7 @@ public class DtoClass {
         this.timeTableID = timeTableID;
         this.subjectID = subjectID;
     }
+    public DtoClass(){}
 
     public String getClassID() {
         return classID;
