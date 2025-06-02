@@ -1,6 +1,5 @@
 package lk.ijse.main.demo.controller;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -15,16 +14,12 @@ import javafx.util.StringConverter;
 import lk.ijse.main.demo.dto.DtoAttendenceTea;
 import lk.ijse.main.demo.getID.IDGenerator;
 import lk.ijse.main.demo.model.AttendTeaModel;
-import lk.ijse.main.demo.model.AttendanceStuModel;
 import lk.ijse.main.demo.toggleButton.ToggleSwitch;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AttendanceTeaController implements Initializable {
@@ -65,7 +60,7 @@ public class AttendanceTeaController implements Initializable {
 
         attendTeaModel = new AttendTeaModel();
         try {
-            adminID.setText(AttendanceStuModel.getAdminName(LoginController.getLabel()));
+            adminID.setText(attendTeaModel.getAdminName(LoginController.getLabel()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

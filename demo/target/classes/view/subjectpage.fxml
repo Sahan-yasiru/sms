@@ -29,13 +29,13 @@
          <children>
             <HBox prefHeight="61.0" prefWidth="584.0">
                <children>
-                  <Label prefHeight="51.0" prefWidth="256.0" styleClass="normalF" stylesheets="@css/main.css" text="Subject ID          :" />
+                  <Label prefHeight="51.0" prefWidth="256.0" styleClass="lbl" stylesheets="@css/main.css" text="Subject ID          :" />
                   <Label fx:id="lblSubID" prefHeight="54.0" prefWidth="371.0" styleClass="colorNormalF" stylesheets="@css/main.css" text="Subject ID" />
                </children>
             </HBox>
             <HBox prefHeight="61.0" prefWidth="584.0">
                <children>
-                  <Label prefHeight="51.0" prefWidth="256.0" styleClass="normalF" stylesheets="@css/main.css" text="Subject Name  :" />
+                  <Label prefHeight="51.0" prefWidth="256.0" styleClass="lbl" stylesheets="@css/main.css" text="Subject Name  :" />
                   <TextField fx:id="txtSubName" prefHeight="45.0" prefWidth="378.0" styleClass="normalF" stylesheets="@css/main.css" />
                </children>
             </HBox>

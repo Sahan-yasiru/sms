@@ -26,7 +26,7 @@ public class SideBarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        lblWelcome.setText(" Welcome "+LoginController.getLabel());
+        lblWelcome.setText(" Welcome " + LoginController.getLabel());
         lordPage("dashboradpage.fxml");
     }
 
@@ -52,10 +52,22 @@ public class SideBarController implements Initializable {
     }
 
 
-    public void lordStudent(ActionEvent actionEvent) {
+    public void lordSubject(ActionEvent actionEvent) {
         lordPage("subjectpage.fxml");
     }
-    public void lordAttendance(ActionEvent actionEvent){
+
+    public void lordAttendance(ActionEvent actionEvent) {
         lordPage("attendancepage.fxml");
     }
+
+    public void lordStudent(ActionEvent actionEvent) {
+        lordPage("StudentPage.fxml");
+    }
+    public void lordTeacher(ActionEvent actionEvent) {
+        lordPage("TeacherPage.fxml");
+    }
+    public void lordClasses(ActionEvent actionEvent) {
+        lordPage("ClassPage.fxml");
+    }
+
 }

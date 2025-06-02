@@ -9,6 +9,15 @@
     -fx-text-fill: #000000;
     -fx-font-size: 18;
     -fx-font-weight: bold;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-border-color: #000000;
+}
+.lbl{
+    -fx-alignment: left;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
 }
 .colorNormalF{
     -fx-text-fill: #f50d0d;

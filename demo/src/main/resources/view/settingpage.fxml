@@ -32,13 +32,13 @@
          <children>
             <HBox prefHeight="36.0" prefWidth="476.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="Admin ID                :" />
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="lbl" stylesheets="@css/main.css" text="Admin ID                :" />
                   <Label fx:id="labelAdminID" prefHeight="25.0" prefWidth="366.0" style="-fx-font-weight: bold; -fx-font-size: 20;" styleClass="colorNormalF" stylesheets="@css/main.css" text="Label" />
                </children>
             </HBox>
             <HBox prefHeight="36.0" prefWidth="476.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="normalF" stylesheets="@css/main.css" text="User Name             :" />
+                  <Label prefHeight="25.0" prefWidth="248.0" styleClass="lbl" stylesheets="@css/main.css" text="User Name             :" />
                   <TextField fx:id="txtUserName" prefHeight="26.0" prefWidth="367.0">
                      <stylesheets>
                         <URL value="@css/main.css" />
@@ -52,13 +52,13 @@
             </HBox>
             <HBox fx:id="hboxCurrentPass" prefHeight="36.0" prefWidth="476.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="182.0" styleClass="normalF" stylesheets="@css/main.css" text="Password :" />
+                  <Label prefHeight="25.0" prefWidth="182.0" styleClass="lbl" stylesheets="@css/main.css" text="Password :" />
                   <PasswordField fx:id="txtPassword" prefHeight="36.0" prefWidth="301.0" />
                </children>
             </HBox>
             <HBox fx:id="hboxType" prefHeight="36.0" prefWidth="476.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="182.0" styleClass="normalF" stylesheets="@css/main.css" text="Admin Type            :" />
+                  <Label prefHeight="25.0" prefWidth="182.0" styleClass="lbl" stylesheets="@css/main.css" text="Admin Type            :" />
                   <ChoiceBox fx:id="cboxType" onMouseClicked="#lordAdminTypes" prefHeight="35.0" prefWidth="303.0" />
                </children>
             </HBox>

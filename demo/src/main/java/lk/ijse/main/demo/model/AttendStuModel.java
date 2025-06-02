@@ -3,6 +3,7 @@ package lk.ijse.main.demo.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.main.demo.controller.LoginController;
+import lk.ijse.main.demo.dto.DtoAttendenceStu;
 import lk.ijse.main.demo.dto.DtoAttendenceTea;
 import lk.ijse.main.demo.getID.IDGenerator;
 import lk.ijse.main.demo.toggleButton.ToggleSwitch;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-public class AttendTeaModel {
+public class AttendStuModel {
 
-    public ObservableList<DtoAttendenceTea> loadTable() throws SQLException {
+    public ObservableList<DtoAttendenceStu> loadTable() throws SQLException {
         ArrayList[] arrays = checkRegistered();
         String[] logs = autoSaveItems(arrays);
 
@@ -25,11 +26,11 @@ public class AttendTeaModel {
             System.out.println(Arrays.toString(logs));
         }
 
-        ResultSet set = CRUD.executeQuery("SELECT * FROM Attendance_Tea");
-        ObservableList<DtoAttendenceTea> attendanceList = FXCollections.observableArrayList();
+        ResultSet set = CRUD.executeQuery("SELECT * FROM Attendance_Stu");
+        ObservableList<DtoAttendenceStu> attendanceList = FXCollections.observableArrayList();
 
         while (set.next()) {
-            attendanceList.add(new DtoAttendenceTea(
+            attendanceList.add(new DtoAttendenceStu(
                     set.getString(1),
                     set.getString(2),
                     set.getString(3),
@@ -45,19 +46,19 @@ public class AttendTeaModel {
     public ArrayList[] checkRegistered() throws SQLException {
         String dayOfWeek = new SimpleDateFormat("EEEE").format(new Date());
         ResultSet teacherSet = CRUD.executeQuery(
-                "SELECT DISTINCT t.Teacher_ID FROM Teacher t JOIN Class c ON t.Class_ID = c.Class_ID " +
-                        "JOIN Time_Table tt ON c.Time_Table_ID = tt.Time_Table_ID WHERE tt.day_of_week = ?",
+                "SELECT DISTINCT S.Student_ID FROM Student S JOIN Class c ON c.Class_ID = S.Class_ID  " +
+                        " JOIN Time_Table tt ON c.Time_Table_ID = tt.Time_Table_ID WHERE tt.day_of_week = ? ",
                 dayOfWeek);
 
         ResultSet classSet = CRUD.executeQuery(
                 "SELECT DISTINCT c.Class_ID FROM Class c JOIN Time_Table t ON c.Time_Table_ID = t.Time_Table_ID WHERE t.day_of_week = ?",
                 dayOfWeek);
 
-        ArrayList<String> teacherIDs = new ArrayList<>();
+        ArrayList<String> studentIds = new ArrayList<>();
         ArrayList<String> classIDs = new ArrayList<>();
 
         while (teacherSet.next()) {
-            teacherIDs.add(teacherSet.getString(1));
+            studentIds.add(teacherSet.getString(1));
         }
 
         while (classSet.next()) {
@@ -65,15 +66,15 @@ public class AttendTeaModel {
         }
 
         String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        for (String teacherID : teacherIDs) {
+        for (String studentID : studentIds) {
             for (String classID : classIDs) {
-                ResultSet chackSet = CRUD.executeQuery("SELECT * FROM Attendance_Tea  WHERE Teacher_ID = ? AND classID = ? AND Date = ?", teacherID, classID, today);
+                ResultSet chackSet = CRUD.executeQuery("SELECT * FROM Attendance_Stu  WHERE Student_ID = ? AND Class_ID = ? AND Date = ?", studentID, classID, today);
                 if (chackSet.next()) {
                     return null;
                 }
             }
         }
-        return new ArrayList[]{teacherIDs, classIDs};
+        return new ArrayList[]{studentIds, classIDs};
     }
 
     public String[] autoSaveItems(ArrayList... arrayLists) throws SQLException {
@@ -81,26 +82,26 @@ public class AttendTeaModel {
         if (arrayLists == null || arrayLists.length < 2 || arrayLists[0] == null || arrayLists[1] == null) {
             return null;
         } else {
-            ArrayList<String> teacherIDs = arrayLists[0];
+            ArrayList<String> studentIDs = arrayLists[0];
             ArrayList<String> classIDs = arrayLists[1];
 
             String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            for (String teacherID : teacherIDs) {
-                ResultSet classSet = CRUD.executeQuery("SELECT Class_ID FROM Teacher WHERE Teacher_ID = ?", teacherID);
+            for (String studentID : studentIDs) {
+                ResultSet classSet = CRUD.executeQuery("SELECT Class_ID FROM Student WHERE Student_ID = ?", studentID);
                 if (classSet.next()) {
                     String classID = classSet.getString("Class_ID");
                     ResultSet exists = CRUD.executeQuery(
-                            "SELECT * FROM Attendance_Tea WHERE Date = ? AND Teacher_ID = ? AND ClassID = ?", today, teacherID, classID);
+                            "SELECT * FROM Attendance_Stu WHERE Date = ? AND Student_ID = ? AND Class_ID = ?", today, studentID, classID);
                     if (!exists.next()) {
-                        boolean inserted = CRUD.executeQuery("INSERT INTO Attendance_Tea VALUES (?, ?, ?, ?, ?, ?)",
-                                new IDGenerator().getID("AT", "Attend_ID", "Attendance_Tea"),
+                        boolean inserted = CRUD.executeQuery("INSERT INTO Attendance_Stu VALUES (?, ?, ?, ?, ?, ?)",
+                                new IDGenerator().getID("AT", "Attend_ID", "Attendance_Stu"),
                                 today,
                                 AttendStuModel.getAdminName(LoginController.getLabel()),
-                                teacherID,
+                                studentID,
                                 classID,
                                 false);
                         if (inserted) {
-                            insertedLogs.add(teacherID + " , " + classID + " , " + today);
+                            insertedLogs.add(studentID + " , " + classID + " , " + today);
                         }
                     }
                 }
@@ -111,7 +112,7 @@ public class AttendTeaModel {
 
 
     public void setAttendance(String attendID, Boolean state) throws SQLException {
-        String sql = "UPDATE Attendance_Tea SET Status = ? WHERE Attend_ID = ?";
+        String sql = "UPDATE Attendance_Stu SET Status = ? WHERE Attend_ID = ?";
         CRUD.executeQuery(sql, state, attendID);
     }
 
@@ -139,25 +140,25 @@ public class AttendTeaModel {
         return classIDs;
     }
 
-    public ObservableList<String> lordTeaIDs() throws SQLException {
-        String sql = "SELECT Teacher_ID FROM Teacher";
+    public ObservableList<String> lordStuIDs() throws SQLException {
+        String sql = "SELECT Student_ID FROM Student";
         ResultSet resultSet = CRUD.executeQuery(sql);
-        ObservableList<String> teacherIDs = FXCollections.observableArrayList();
+        ObservableList<String> studentIDs = FXCollections.observableArrayList();
 
         while (resultSet.next()) {
-            teacherIDs.add(resultSet.getString(1));
+            studentIDs.add(resultSet.getString(1));
         }
 
-        return teacherIDs;
+        return studentIDs;
     }
 
 
-    public String saveAttedTea(DtoAttendenceTea dtoAttendenceTea) throws SQLException {
-        ResultSet set = CRUD.executeQuery("SELECT * FROM Attendance_Tea WHERE Date = ? AND Teacher_ID = ? AND Class_ID = ?", dtoAttendenceTea.getDate(), dtoAttendenceTea.getTeacherID(), dtoAttendenceTea.getClassID());
+    public String saveAttedStu(DtoAttendenceStu dtoAttendenceStu) throws SQLException {
+        ResultSet set = CRUD.executeQuery("SELECT * FROM Attendance_Stu WHERE Date = ? AND Student_ID = ? AND Class_ID = ?", dtoAttendenceStu.getDate(), dtoAttendenceStu.getStudentID(), dtoAttendenceStu.getClassID());
         if (!set.next()) {
-            String sql = "INSERT INTO Attendance_Tea VALUES (?, ?, ?, ?, ?, ? )";
-            Boolean b = CRUD.executeQuery(sql, dtoAttendenceTea.getAttendID(), dtoAttendenceTea.getDate(), dtoAttendenceTea.getAdminID(), dtoAttendenceTea.getTeacherID(),
-                    dtoAttendenceTea.getClassID(), dtoAttendenceTea.getStatus());
+            String sql = "INSERT INTO Attendance_Stu VALUES (?, ?, ?, ?, ?, ? )";
+            Boolean b = CRUD.executeQuery(sql, dtoAttendenceStu.getAttendID(), dtoAttendenceStu.getDate(), dtoAttendenceStu.getAdminID(), dtoAttendenceStu.getStudentID(),
+                    dtoAttendenceStu.getClassID(), dtoAttendenceStu.getStatus());
 
             return b == true ? "Saved" : "something went wrong !";
         } else {
@@ -166,21 +167,22 @@ public class AttendTeaModel {
 
     }
 
-    public String deleteAttedTea(String attendID) throws SQLException {
-        Boolean b = CRUD.executeQuery("DELETE FROM Attendance_Tea WHERE Attend_ID = ?", attendID);
+    public String deleteAttedStu(String attendID) throws SQLException {
+        Boolean b = CRUD.executeQuery("DELETE FROM Attendance_Stu WHERE Attend_ID = ?", attendID);
         return b == true ? "Deleted" : "something went wrong !";
     }
 
-    public String updateAtted(DtoAttendenceTea dtoAttendenceTea) throws SQLException {
-        ResultSet set = CRUD.executeQuery("SELECT * FROM Attendance_Tea WHERE Date = ? AND Teacher_ID = ? AND Class_ID = ?", dtoAttendenceTea.getDate(), dtoAttendenceTea.getTeacherID(), dtoAttendenceTea.getClassID());
+    public String updateAtted(DtoAttendenceStu dtoAttendenceStu) throws SQLException {
+        ResultSet set = CRUD.executeQuery("SELECT * FROM Attendance_Stu WHERE Date = ? AND Student_ID = ? AND Class_ID = ?", dtoAttendenceStu.getDate(), dtoAttendenceStu.getStudentID(), dtoAttendenceStu.getClassID());
         if (!set.next()) {
-            String sql = "UPDATE Attendance_Tea SET Date = ? ,Admin_ID = ? ,Teacher_ID = ? ,Class_ID = ? , Status = ? WHERE Attend_ID = ?";
-            Boolean b = CRUD.executeQuery(sql, dtoAttendenceTea.getDate(), dtoAttendenceTea.getAdminID(), dtoAttendenceTea.getTeacherID(),
-                    dtoAttendenceTea.getClassID(), dtoAttendenceTea.getStatus(), dtoAttendenceTea.getAttendID());
+            String sql = "UPDATE Attendance_Stu SET Date = ? ,Admin_ID = ? ,Student_ID = ? ,Class_ID = ? , Status = ? WHERE Attend_ID = ?";
+            Boolean b = CRUD.executeQuery(sql, dtoAttendenceStu.getDate(), dtoAttendenceStu.getAdminID(), dtoAttendenceStu.getStudentID(),
+                    dtoAttendenceStu.getClassID(), dtoAttendenceStu.getStatus(), dtoAttendenceStu.getAttendID());
 
             return b == true ? "updated" : "something went wrong !";
         } else {
             return "Already saved !";
+
         }
 
     }

@@ -16,6 +16,7 @@ public class DtoStudent {
         this.grade = grade;
         this.address = address;
     }
+    public DtoStudent() {}
 
     public String getStudentID() {
         return studentID;

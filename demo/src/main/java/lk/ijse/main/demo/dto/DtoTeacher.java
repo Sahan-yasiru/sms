@@ -5,15 +5,16 @@ public class DtoTeacher {
     private String subjectID;
     private String name;
     private String classId;
-    private String gradeAssign;
+    private Integer gradeAssign;
 
-    public DtoTeacher(String teacherID, String subjectID, String name, String classId, String gradeAssign) {
+    public DtoTeacher(String teacherID, String subjectID, String name, String classId, int gradeAssign) {
         this.teacherID = teacherID;
         this.subjectID = subjectID;
         this.name = name;
         this.classId = classId;
         this.gradeAssign = gradeAssign;
     }
+    public DtoTeacher() {}
 
     public String getTeacherID() {
         return teacherID;
@@ -47,11 +48,11 @@ public class DtoTeacher {
         this.classId = classId;
     }
 
-    public String getGradeAssign() {
+    public int getGradeAssign() {
         return gradeAssign;
     }
 
-    public void setGradeAssign(String gradeAssign) {
+    public void setGradeAssign(int gradeAssign) {
         this.gradeAssign = gradeAssign;
     }
 }

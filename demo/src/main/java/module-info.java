@@ -6,6 +6,7 @@ module lk.ijse.main.demo {
     requires jdk.jfr;
     requires com.gluonhq.charm.glisten;
     requires mysql.connector.j;
+    requires com.google.protobuf;
 
 
     opens lk.ijse.main.demo.controller to javafx.fxml;
