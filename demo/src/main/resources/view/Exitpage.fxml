@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="178.0" prefWidth="405.0" style="-fx-border-radius: 20; -fx-background-radius: 20;" styleClass="backgorund" stylesheets="@css/exitPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.ExitController">
+   <children>
+      <Button fx:id="btnYes" layoutX="24.0" layoutY="109.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" stylesheets="@css/exitPage.css" text="OK" />
+      <Button fx:id="btnNo" layoutX="240.0" layoutY="109.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" stylesheets="@css/exitPage.css" text="Cancel" />
+      <Label layoutX="24.0" layoutY="31.0" stylesheets="@css/exitPage.css" text="Exit?">
+         <styleClass>
+            <String fx:value="font" />
+            <String fx:value="backgorund" />
+         </styleClass>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="60.0" prefHeight="29.0" prefWidth="275.0" stylesheets="@css/exitPage.css" text="Are you sure want to exit ?">
+         <styleClass>
+            <String fx:value="font" />
+            <String fx:value="backgorund" />
+         </styleClass>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

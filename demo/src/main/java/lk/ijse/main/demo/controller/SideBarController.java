@@ -4,10 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -63,11 +69,32 @@ public class SideBarController implements Initializable {
     public void lordStudent(ActionEvent actionEvent) {
         lordPage("StudentPage.fxml");
     }
+
     public void lordTeacher(ActionEvent actionEvent) {
         lordPage("TeacherPage.fxml");
     }
+
     public void lordClasses(ActionEvent actionEvent) {
         lordPage("ClassPage.fxml");
+    }
+
+    public void pressedExit(ActionEvent actionEvent) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/view/Exitpage.fxml"));
+            Scene scene = new Scene(parent);
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);  // Important for transparent scenes
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.centerOnScreen();
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
 }

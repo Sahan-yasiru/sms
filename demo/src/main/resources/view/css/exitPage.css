@@ -1,0 +1,13 @@
+.backgorund{
+    -fx-background-color:  #393E46;
+}
+.font{
+    -fx-text-fill: #ffff;
+}
+.button{
+    -fx-font-weight: bold;
+    -fx-background-color:#393E46 ;
+    -fx-text-fill: #ffff;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+}

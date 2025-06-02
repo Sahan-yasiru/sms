@@ -25,7 +25,7 @@
                </VBox.margin>
             </ImageView>
             <Label fx:id="lblWelcome" prefHeight="50.0" prefWidth="188.0" styleClass="font" stylesheets="@css/mainpage.css" text="Welcome Admin" />
-            <VBox prefHeight="601.0" prefWidth="259.0" spacing="20.0">
+            <VBox prefHeight="556.0" prefWidth="285.0" spacing="20.0">
                <children>
                   <Button fx:id="btnDashbord" mnemonicParsing="false" onAction="#lordDashBord" prefHeight="69.0" prefWidth="259.0" styleClass="buttons" stylesheets="@css/mainpage.css" text="DashBord" />
                   <Button mnemonicParsing="false" onAction="#lordSettings" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css" text="Settings">
@@ -57,6 +57,19 @@
                         <String fx:value="buttons" />
                         <String fx:value="pane" />
                      </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#pressedExit" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css">
+                     <styleClass>
+                        <String fx:value="buttons" />
+                        <String fx:value="pane" />
+                     </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="133.0">
+                           <image>
+                              <Image url="@images/img_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
                <padding>
