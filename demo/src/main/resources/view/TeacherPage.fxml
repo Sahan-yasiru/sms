@@ -83,7 +83,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <TableView fx:id="tableView" layoutX="467.0" layoutY="150.0" onMouseClicked="#tableClicked" prefHeight="601.0" prefWidth="697.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="467.0" layoutY="150.0" onMouseClicked="#tableClicked" prefHeight="601.0" prefWidth="697.0" stylesheets="@css/Tables.css">
         <columns>
           <TableColumn fx:id="colTeacherID" prefWidth="119.0" text="Teacher_ID" />
           <TableColumn fx:id="colSubjectID" prefWidth="104.0" text="Subject_ID" />

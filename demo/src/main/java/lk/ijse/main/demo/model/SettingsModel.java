@@ -46,15 +46,15 @@ public class SettingsModel {
     }
 
     public ObservableList<DtoAdmin> lordTable(Boolean type) throws SQLException {
-        ResultSet set=null;
-        String sql="SELECT * FROM Admin ";
-        if(type) {
-            set=CRUD.executeQuery(sql);
-        }else {
-            sql+="WHERE User_Name = ?";
-            set=CRUD.executeQuery(sql,LoginController.getLabel());
+        ResultSet set = null;
+        String sql = "SELECT * FROM Admin ";
+        if (type) {
+            set = CRUD.executeQuery(sql);
+        } else {
+            sql += "WHERE User_Name = ?";
+            set = CRUD.executeQuery(sql, LoginController.getLabel());
         }
-        ObservableList<DtoAdmin>dtoAdmins=FXCollections.observableArrayList();
+        ObservableList<DtoAdmin> dtoAdmins = FXCollections.observableArrayList();
         while (set.next()) {
             String id = set.getString(1);
             String name = set.getString(2);
@@ -108,7 +108,6 @@ public class SettingsModel {
         ResultSet set = CRUD.executeQuery("SELECT Password FROM Admin WHERE Admin_ID = ? ", id);
 
         return set.next() ? set.getString(1) : null;
-
 
     }
 

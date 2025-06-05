@@ -113,6 +113,7 @@ public class AttendanceStuController implements Initializable {
 
     public void boxClicked(MouseEvent mouseEvent) {
 
+
     }
 
     public void lordTable() {

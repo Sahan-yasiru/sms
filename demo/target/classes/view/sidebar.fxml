@@ -58,6 +58,12 @@
                         <String fx:value="pane" />
                      </styleClass>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#lordExmas" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css" text="Exam">
+                     <styleClass>
+                        <String fx:value="buttons" />
+                        <String fx:value="pane" />
+                     </styleClass>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#pressedExit" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css">
                      <styleClass>
                         <String fx:value="buttons" />

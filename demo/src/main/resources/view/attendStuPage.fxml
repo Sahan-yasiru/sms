@@ -17,7 +17,7 @@
 
 <AnchorPane fx:id="pane" onMouseClicked="#paneClicked" prefHeight="739.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.AttendanceStuController">
    <children>
-      <TableView fx:id="tableView" layoutX="7.0" layoutY="43.0" onMouseClicked="#tableClicked" prefHeight="694.0" prefWidth="693.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="7.0" layoutY="43.0" onMouseClicked="#tableClicked" prefHeight="694.0" prefWidth="693.0" stylesheets="@css/Tables.css">
         <columns>
             <TableColumn fx:id="colAttendID" prefWidth="95.0" text="Attend_ID" />
             <TableColumn fx:id="colDate" prefWidth="101.0" text="Date" />

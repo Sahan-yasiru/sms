@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="178.0" prefWidth="405.0" style="-fx-border-radius: 20; -fx-background-radius: 20;" styleClass="backgorund" stylesheets="@css/exitPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.ExitController">
+<AnchorPane prefHeight="168.0" prefWidth="405.0" style="-fx-border-radius: 20; -fx-background-radius: 20;" styleClass="backgorund" stylesheets="@css/exitPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.main.demo.controller.ExitController">
    <children>
       <Button fx:id="btnYes" layoutX="24.0" layoutY="109.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" stylesheets="@css/exitPage.css" text="OK" />
       <Button fx:id="btnNo" layoutX="240.0" layoutY="109.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="151.0" stylesheets="@css/exitPage.css" text="Cancel" />

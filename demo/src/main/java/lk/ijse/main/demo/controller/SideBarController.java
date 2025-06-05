@@ -77,6 +77,10 @@ public class SideBarController implements Initializable {
     public void lordClasses(ActionEvent actionEvent) {
         lordPage("ClassPage.fxml");
     }
+    public void lordExmas(ActionEvent actionEvent) {
+        lordPage("ExamPage.fxml");
+    }
+
 
     public void pressedExit(ActionEvent actionEvent) {
         try {

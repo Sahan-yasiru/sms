@@ -54,7 +54,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <TableView fx:id="tableView" layoutX="618.0" layoutY="187.0" onMouseClicked="#tableClicked" prefHeight="538.0" prefWidth="537.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="618.0" layoutY="187.0" onMouseClicked="#tableClicked" prefHeight="538.0" prefWidth="537.0" stylesheets="@css/Tables.css">
         <columns>
           <TableColumn fx:id="colSubjectID" prefWidth="75.0" text="Subject_ID" />
           <TableColumn fx:id="colSubName" prefWidth="75.0" text="Name" />
