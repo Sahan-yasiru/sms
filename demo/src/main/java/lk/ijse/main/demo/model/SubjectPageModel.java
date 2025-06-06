@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SubjectPageModel {
     private Connection connection;
@@ -36,15 +38,11 @@ public class SubjectPageModel {
     }
 
     public String deleteSubject(DtoSubject dtoSubject) throws SQLException {
-        if (dtoSubject.getSubjectID().isEmpty()) {
-            return "Subject Id record is empty ";
-        } else {
-            String sql = "DELETE FROM Subject WHERE Subject_id=?";
-            Boolean b = CRUD.executeQuery(sql, dtoSubject.getSubjectID());
-            return b == true ? "Success" : "Failed";
-
-        }
+        String sql = "DELETE FROM Subject WHERE Subject_id=?";
+        Boolean b = CRUD.executeQuery(sql, dtoSubject.getSubjectID());
+        return b == true ? "Success" : "Failed";
     }
+
 
     public ObservableList<DtoSubject> getSubjectData() throws SQLException {
         String sql = "SELECT * FROM Subject";
@@ -57,21 +55,21 @@ public class SubjectPageModel {
 
     }
 
-    public String getNumber() throws SQLException{
-            String sql = "SELECT COUNT(Subject_ID) AS Num FROM Subject";
-            ResultSet resultSet = CRUD.executeQuery(sql);
-            String result = "";
-            while (resultSet.next()) {
-                result = resultSet.getString("Num");
-            }
-            return result;
+    public String getNumber() throws SQLException {
+        String sql = "SELECT COUNT(Subject_ID) AS Num FROM Subject";
+        ResultSet resultSet = CRUD.executeQuery(sql);
+        String result = "";
+        while (resultSet.next()) {
+            result = resultSet.getString("Num");
+        }
+        return result;
     }
 
     public ObservableList<DtoSubject> searchSubject(String anything) throws SQLException {
         String sql = "SELECT  * FROM Subject WHERE Subject_ID= ? OR Name= ?";
 
         ObservableList<DtoSubject> dtoSubjects = FXCollections.observableArrayList();
-        ResultSet set = CRUD.executeQuery(sql,anything,anything);
+        ResultSet set = CRUD.executeQuery(sql, anything, anything);
 
         while (set.next()) {
             dtoSubjects.add(new DtoSubject(set.getString("Subject_ID"), set.getString("Name")));
@@ -79,6 +77,7 @@ public class SubjectPageModel {
         return dtoSubjects;
 
     }
-
-
 }
+
+
+

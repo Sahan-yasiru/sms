@@ -16,7 +16,7 @@
             <Insets top="30.0" />
          </padding>
          <children>
-            <ImageView fitHeight="159.0" fitWidth="179.0">
+            <ImageView fitHeight="139.0" fitWidth="160.0">
                <image>
                   <Image url="@images/profile.png" />
                </image>
@@ -25,7 +25,7 @@
                </VBox.margin>
             </ImageView>
             <Label fx:id="lblWelcome" prefHeight="50.0" prefWidth="188.0" styleClass="font" stylesheets="@css/mainpage.css" text="Welcome Admin" />
-            <VBox prefHeight="556.0" prefWidth="285.0" spacing="20.0">
+            <VBox prefHeight="691.0" prefWidth="285.0" spacing="20.0">
                <children>
                   <Button fx:id="btnDashbord" mnemonicParsing="false" onAction="#lordDashBord" prefHeight="69.0" prefWidth="259.0" styleClass="buttons" stylesheets="@css/mainpage.css" text="DashBord" />
                   <Button mnemonicParsing="false" onAction="#lordSettings" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css" text="Settings">
@@ -64,6 +64,12 @@
                         <String fx:value="pane" />
                      </styleClass>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#lordTimeTable" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css" text="Time Table">
+                     <styleClass>
+                        <String fx:value="buttons" />
+                        <String fx:value="pane" />
+                     </styleClass>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#pressedExit" prefHeight="69.0" prefWidth="259.0" stylesheets="@css/mainpage.css">
                      <styleClass>
                         <String fx:value="buttons" />
@@ -79,7 +85,7 @@
                   </Button>
                </children>
                <padding>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
               </padding>
             </VBox>
          </children></VBox>

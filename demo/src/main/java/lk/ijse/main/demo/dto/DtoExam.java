@@ -3,19 +3,20 @@ package lk.ijse.main.demo.dto;
 public class DtoExam {
     private String examID;
     private String SubjectID;
-    private String StuentID;
+    private String studentID;
     private String exmaDate;
     private String teacherID;
-    private String marks;
+    private int marks;
 
-    public DtoExam(String examID, String subjectID, String stuentID, String exmaDate, String teacherID, String marks) {
+    public DtoExam(String examID, String subjectID, String studentID, String exmaDate, String teacherID, int marks) {
         this.examID = examID;
-        SubjectID = subjectID;
-        StuentID = stuentID;
+        this.SubjectID = subjectID;
+        this.studentID = studentID;
         this.exmaDate = exmaDate;
         this.teacherID = teacherID;
         this.marks = marks;
     }
+    public DtoExam() {}
 
     public String getExamID() {
         return examID;
@@ -33,12 +34,12 @@ public class DtoExam {
         SubjectID = subjectID;
     }
 
-    public String getStuentID() {
-        return StuentID;
+    public String getStudentID() {
+        return this.studentID;
     }
 
     public void setStuentID(String stuentID) {
-        StuentID = stuentID;
+        this.studentID = stuentID;
     }
 
     public String getExmaDate() {
@@ -57,11 +58,11 @@ public class DtoExam {
         this.teacherID = teacherID;
     }
 
-    public String getMarks() {
+    public int getMarks() {
         return marks;
     }
 
-    public void setMarks(String marks) {
+    public void setMarks(int marks) {
         this.marks = marks;
     }
 }

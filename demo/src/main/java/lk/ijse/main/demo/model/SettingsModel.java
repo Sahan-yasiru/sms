@@ -3,9 +3,12 @@ package lk.ijse.main.demo.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.main.demo.controller.LoginController;
+import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoAdmin;
 import lk.ijse.main.demo.util.CRUD;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -24,6 +27,7 @@ public class SettingsModel {
     }
 
     public String deleteAdmin(String adminID) throws SQLException {
+        Connection connection= DbController.getInstance().getConnection();
         if (adminID.isEmpty()) {
             return "Record is Empty";
         } else {

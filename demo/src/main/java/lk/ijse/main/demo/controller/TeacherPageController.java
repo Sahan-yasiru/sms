@@ -197,6 +197,7 @@ public class TeacherPageController implements Initializable {
                         dtoTeacher.getSubjectID().toLowerCase().contains(filterText) ||
                         dtoTeacher.getName().toLowerCase().contains(filterText) ||
                         dtoTeacher.getClassId().toLowerCase().contains(filterText) ||
+                        dtoTeacher.getTeacherID().toLowerCase().contains(filterText)||
                         Integer.toString(dtoTeacher.getGradeAssign()).toLowerCase().contains(filterText) ;
             });
         });

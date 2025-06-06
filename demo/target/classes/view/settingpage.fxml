@@ -86,7 +86,7 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="519.0" layoutY="157.0" onMouseClicked="#tableClicked" prefHeight="584.0" prefWidth="636.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="519.0" layoutY="157.0" onMouseClicked="#tableClicked" prefHeight="584.0" prefWidth="636.0" stylesheets="@css/Tables.css">
         <columns>
           <TableColumn fx:id="ColAdmin_ID" prefWidth="142.0" text="Admin_ID" />
             <TableColumn fx:id="colType" prefWidth="135.0" text="Type" />

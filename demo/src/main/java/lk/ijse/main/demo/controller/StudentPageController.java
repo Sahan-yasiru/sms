@@ -143,10 +143,13 @@ public class StudentPageController implements Initializable {
         try {
             DtoStudent dtoStudent = new DtoStudent();
             dtoStudent.setStudentID(lblStudentID.getText());
-            String result = studetModel.deleteStu(dtoStudent);
-            new Alert(Alert.AlertType.INFORMATION, result).show();
-            reLode();
-            clear();
+            Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"DO you want to delete this student?",ButtonType.YES,ButtonType.NO);
+            if (alert.showAndWait().get()==ButtonType.YES) {
+                String result = studetModel.deleteStu(dtoStudent);
+                new Alert(Alert.AlertType.INFORMATION, result).show();
+                reLode();
+                clear();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

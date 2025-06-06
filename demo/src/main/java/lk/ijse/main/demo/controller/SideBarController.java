@@ -80,6 +80,9 @@ public class SideBarController implements Initializable {
     public void lordExmas(ActionEvent actionEvent) {
         lordPage("ExamPage.fxml");
     }
+    public void lordTimeTable(ActionEvent actionEvent) {
+        lordPage("TimeTable.fxml");
+    }
 
 
     public void pressedExit(ActionEvent actionEvent) {

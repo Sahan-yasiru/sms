@@ -216,7 +216,7 @@ public class AttendanceTeaController implements Initializable {
                 try {
                     String string = attendTeaModel.updateAtted(new DtoAttendenceTea(attendanceID.getText(),
                             datePicker.getValue().toString(), adminID.getText(), cmbTeaID.getValue(),
-                            cmbclassID.getValue(), btnPresent.isSelected() ? new ToggleSwitch(true) : new ToggleSwitch(false)));
+                            btnPresent.isSelected() ? new ToggleSwitch(true) : new ToggleSwitch(false),cmbclassID.getValue() ));
                     new Alert(Alert.AlertType.INFORMATION, string).show();
 
                 } catch (Exception e) {
@@ -258,7 +258,7 @@ public class AttendanceTeaController implements Initializable {
             try {
                 String string = attendTeaModel.saveAttedTea(new DtoAttendenceTea(attendanceID.getText(),
                         datePicker.getValue().toString(), adminID.getText(), cmbTeaID.getValue(),
-                        cmbclassID.getValue(), btnPresent.isSelected() ? new ToggleSwitch(true) : new ToggleSwitch(false)));
+                        btnPresent.isSelected() ? new ToggleSwitch(true) : new ToggleSwitch(false),cmbclassID.getValue() ));
                 new Alert(Alert.AlertType.INFORMATION, string).show();
 
             } catch (Exception e) {

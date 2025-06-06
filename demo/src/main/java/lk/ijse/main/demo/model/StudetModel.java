@@ -2,10 +2,13 @@ package lk.ijse.main.demo.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoClass;
 import lk.ijse.main.demo.dto.DtoStudent;
 import lk.ijse.main.demo.util.CRUD;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -46,9 +49,41 @@ public class StudetModel {
 
     }
     public String deleteStu(DtoStudent dtoStudent) throws SQLException {
-        String sql="DELETE FROM Student WHERE  Student_ID = ?";
-        Boolean b=CRUD.executeQuery(sql,dtoStudent.getStudentID());
-        return b?"Successfully Deleted":"Failed";
+        Connection connection = DbController.getInstance().getConnection();
+        connection.setAutoCommit(false);
 
+        boolean success = false;
+
+        try {
+            String studentID = dtoStudent.getStudentID();
+
+            // Delete Attendance_Stu records if any
+            PreparedStatement psAttendance = connection.prepareStatement("DELETE FROM Attendance_Stu WHERE Student_ID = ?");
+            psAttendance.setString(1, studentID);
+            psAttendance.executeUpdate();
+
+
+            // Delete from Student table
+            PreparedStatement psStudent = connection.prepareStatement("DELETE FROM Student WHERE Student_ID = ?");
+            psStudent.setString(1, studentID);
+            int studentDeleted = psStudent.executeUpdate();
+
+            if (studentDeleted > 0) {
+                connection.commit();
+                success = true;
+            } else {
+                connection.rollback();
+            }
+
+        } catch (SQLException e) {
+            connection.rollback();
+            e.printStackTrace();
+        } finally {
+            connection.setAutoCommit(true);
+        }
+
+        return success ? "Successfully Deleted" : "Failed";
     }
+
+
 }

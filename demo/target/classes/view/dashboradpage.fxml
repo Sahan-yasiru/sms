@@ -79,7 +79,7 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="26.0" layoutY="159.0" prefHeight="483.0" prefWidth="493.0" styleClass="table" stylesheets="@css/main.css">
+      <TableView fx:id="tableView" layoutX="26.0" layoutY="159.0" prefHeight="483.0" prefWidth="493.0" styleClass="column-header" stylesheets="@css/Tables.css">
         <columns>
             <TableColumn fx:id="colDate" prefWidth="118.0" text="Day" />
           <TableColumn fx:id="colSubject" prefWidth="127.0" text="Subject" />

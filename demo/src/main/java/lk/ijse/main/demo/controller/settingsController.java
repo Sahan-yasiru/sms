@@ -4,6 +4,8 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import jdk.jfr.SettingControl;
 import lk.ijse.main.demo.dto.DtoAdmin;
+import lk.ijse.main.demo.dto.DtoTeacher;
 import lk.ijse.main.demo.getID.IDGenerator;
 import lk.ijse.main.demo.model.AddUserModel;
 import lk.ijse.main.demo.model.SettingsModel;
@@ -148,7 +151,7 @@ public class settingsController implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, result).show();
             reLord();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage());
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -201,12 +204,22 @@ public class settingsController implements Initializable {
     }
 
     public void searchUser(KeyEvent keyEvent) {
-        try {
-            ObservableList<DtoAdmin> dtoAdmins = settingsModel.searchUser(SearchBar.getText());
-            tableView.setItems(dtoAdmins);
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage());
-        }
+        lordTable();
+        FilteredList<DtoAdmin> filteredList = new FilteredList<>(tableView.getItems(), e -> true);
+        SearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(dtoAdmin -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String filterText = newValue.toLowerCase();
+                return dtoAdmin.getAdminID().toLowerCase().contains(filterText) ||
+                        dtoAdmin.getUserName().toLowerCase().contains(filterText) ||
+                        dtoAdmin.getAdminType().toLowerCase().contains(filterText) ;
+            });
+        });
+        SortedList<DtoAdmin> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedList);
     }
 
 

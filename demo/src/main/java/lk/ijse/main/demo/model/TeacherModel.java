@@ -2,9 +2,12 @@ package lk.ijse.main.demo.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.main.demo.db.DbController;
 import lk.ijse.main.demo.dto.DtoTeacher;
 import lk.ijse.main.demo.util.CRUD;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,9 +25,32 @@ public class TeacherModel {
         return b?"Successfully updated":"Failed ";
     }
     public String deleteTea(DtoTeacher dtoTeacher) throws SQLException {
-        String sql="DELETE FROM Teacher WHERE Teacher_ID = ?";
-        Boolean b=CRUD.executeQuery(sql,dtoTeacher.getTeacherID());
-        return b?"Successfully deleted":"Failed ";
+        Connection connection= DbController.getInstance().getConnection();
+        connection.setAutoCommit(false);
+        Boolean result=true;
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement("DELETE From Attendance_Tea where Teacher_ID = ?");
+            preparedStatement.setString(1, dtoTeacher.getTeacherID());
+            Boolean b=preparedStatement.executeUpdate()>=0?true:false;
+            if(b){
+                String sql="DELETE FROM Teacher WHERE Teacher_ID = ?";
+                PreparedStatement preparedStatement1=connection.prepareStatement(sql);
+                preparedStatement1.setString(1, dtoTeacher.getTeacherID());
+                result=preparedStatement1.executeUpdate()>=0?true:false;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            connection.rollback();
+        }finally {
+            if(result){
+                connection.commit();
+                return "Successfully deleted";
+            }else  {
+                connection.rollback();
+                connection.setAutoCommit(true);
+                return "Failed ";
+            }
+        }
     }
     public ObservableList<DtoTeacher> getTeacherData() throws SQLException {
         String sql="SELECT * FROM Teacher";

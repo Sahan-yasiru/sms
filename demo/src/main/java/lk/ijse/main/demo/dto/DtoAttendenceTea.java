@@ -11,7 +11,7 @@ public class DtoAttendenceTea {
     private ToggleSwitch toggleSwitch;
     private Boolean state;
 
-    public DtoAttendenceTea(String attendID, String date, String adminID, String teacherID, String classID, ToggleSwitch toggleSwitch) {
+    public DtoAttendenceTea(String attendID, String date, String adminID, String teacherID,  ToggleSwitch toggleSwitch,String classID) {
         this.attendID = attendID;
         this.Date = date;
         this.adminID = adminID;

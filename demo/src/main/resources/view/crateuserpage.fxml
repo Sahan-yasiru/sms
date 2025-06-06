@@ -19,11 +19,11 @@
          </image>
       </ImageView>
       <Label layoutX="244.0" layoutY="14.0" prefHeight="72.0" prefWidth="201.0" styleClass="box" stylesheets="@css/Dashborad.css" text="Register" />
-      <VBox layoutX="41.0" layoutY="128.0" prefHeight="148.0" prefWidth="612.0" spacing="20.0">
+      <VBox layoutX="41.0" layoutY="128.0" prefHeight="239.0" prefWidth="612.0" spacing="20.0">
          <children>
             <HBox prefHeight="33.0" prefWidth="612.0" spacing="50.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="149.0" text="Admin_ID">
+                  <Label prefHeight="18.0" prefWidth="149.0" text="Admin_ID             :">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -35,37 +35,63 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="33.0" prefWidth="612.0" spacing="50.0">
+            <HBox prefHeight="33.0" prefWidth="612.0" spacing="20.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="149.0" text="New User  Name">
+                  <Label prefHeight="18.0" prefWidth="149.0" text="E-Mail Address    :">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtUsername" prefHeight="26.0" prefWidth="359.0">
+                  <TextField fx:id="txtEmail" prefHeight="31.0" prefWidth="325.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-radius: 20;">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="sendEmail" mnemonicParsing="false" onAction="#sendEmail" prefHeight="26.0" prefWidth="106.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-background-color: #FF7601; -fx-border-color: #000000;" text="Send" />
+               </children>
+            </HBox>
+            <HBox prefHeight="75.0" prefWidth="612.0" spacing="50.0">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="117.0" text="OPT               :">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtOpt" prefHeight="31.0" prefWidth="148.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-radius: 20;">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="optChack" mnemonicParsing="false" onAction="#chackOpt" prefHeight="26.0" prefWidth="106.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-background-color: #00FFDE; -fx-border-color: #000000;" text="Chack" />
+               </children>
+            </HBox>
+            <HBox fx:id="boxUser" prefHeight="75.0" prefWidth="612.0" spacing="50.0">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="117.0" text="User Name  :">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUserName" prefHeight="31.0" prefWidth="325.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-radius: 20;">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </TextField>
                </children>
             </HBox>
-            <HBox prefHeight="75.0" prefWidth="612.0" spacing="50.0">
+            <HBox fx:id="boxPassword" prefHeight="68.0" prefWidth="612.0" spacing="50.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="149.0" text="New Password">
+                  <Label prefHeight="21.0" prefWidth="118.0" text="Password     :">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtPassWold" prefHeight="31.0" prefWidth="359.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </PasswordField>
+                  <PasswordField fx:id="txtPassword" prefHeight="42.0" prefWidth="319.0" style="-fx-border-color: #000000; -fx-border-radius: 20; -fx-background-radius: 20;" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="232.0" layoutY="310.0" mnemonicParsing="false" onAction="#addUser" prefHeight="60.0" prefWidth="224.0" style="-fx-background-color: #000000; -fx-background-radius: 20;" stylesheets="@css/Dashborad.css" text="Sign up" textFill="WHITE">
+      <Button fx:id="btnSign" layoutX="235.0" layoutY="396.0" mnemonicParsing="false" onAction="#addUser" prefHeight="60.0" prefWidth="224.0" style="-fx-background-color: #000000; -fx-background-radius: 20;" stylesheets="@css/Dashborad.css" text="Sign up" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
