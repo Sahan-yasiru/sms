@@ -57,13 +57,12 @@ public class StudetModel {
         try {
             String studentID = dtoStudent.getStudentID();
 
-            // Delete Attendance_Stu records if any
             PreparedStatement psAttendance = connection.prepareStatement("DELETE FROM Attendance_Stu WHERE Student_ID = ?");
             psAttendance.setString(1, studentID);
             psAttendance.executeUpdate();
 
 
-            // Delete from Student table
+
             PreparedStatement psStudent = connection.prepareStatement("DELETE FROM Student WHERE Student_ID = ?");
             psStudent.setString(1, studentID);
             int studentDeleted = psStudent.executeUpdate();
